@@ -1,19 +1,26 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    static int gamesPlayed = 0;
+    static List<String> userSelections;
+    static List<String> computerSelections;
 
     public static void main(String[] args) {
-        System.out.println("Welcome to Rock, Paper, Scissors " +
-                "\n1. Type PLAY to start the game" +
-                "\n2. Type HISTORY to check out your game history" +
-                "\n3. Type QUIT to quit the game.");
+        computerSelections = new ArrayList<>();
+        userSelections = new ArrayList<>();
         mainMenuSelection();
-
     }
 
     public static void mainMenuSelection() {
+        System.out.println("\n=====MAIN MENU=====\n" +
+                "\nWelcome to Rock, Paper, Scissors " +
+                "\n1. Type PLAY to start the game" +
+                "\n2. Type HISTORY to check out your game history" +
+                "\n3. Type QUIT to quit the game.\n");
         Scanner input = new Scanner(System.in);
         String userInput = input.nextLine();
         switch (userInput.toUpperCase()) {
@@ -21,11 +28,13 @@ public class Main {
                 userPlay();
                 break;
             case "HISTORY":
+                System.out.println("Total number of games played: " +gamesPlayed);
+                break;
             case "QUIT":
                 System.exit(0);
                 break;
             default:
-                System.out.println("Wrong selection. Please type PLAY, HISTORY or QUIT");
+                System.out.println("\nWrong selection. Please type PLAY, HISTORY or QUIT\n");
                 mainMenuSelection();
                 break;
 
@@ -33,12 +42,15 @@ public class Main {
     }
 
     public static void userPlay() {
-        System.out.println("\nType in ROCK, PAPER or SCISSORS to play." +
+
+        System.out.println("Type in ROCK, PAPER or SCISSORS to play." +
                 "\nOr type QUIT to go back to the Main Menu\n");
         Scanner input = new Scanner(System.in);
         String userInput = input.nextLine();
         switch (userInput.toUpperCase()) {
             case "ROCK":
+                gamesPlayed++;
+                userSelections.add("ROCK");
                 String computerselection0 = "";
                 int rng0 = 0 + (int)(Math.random() * ((2 - 0) + 1)); //RNG between min value 0 and max value 2; so
                 //the only random numbers returning are 0,1,2.
@@ -49,19 +61,24 @@ public class Main {
                 switch (computerselection0) {
                     case "ROCK":
                         System.out.println("\nComputer chooses: ROCK! It is a tie!\n");
+                        computerSelections.add("ROCK");
                         userPlay();
                         break;
                     case "PAPER":
                         System.out.println("\nComputer chooses: PAPER! You lost!\n");
+                        computerSelections.add("PAPER");
                         userPlay();
                         break;
                     case "SCISSORS":
                         System.out.println("\nComputer chooses: SCISSORS! You win!\n");
+                        computerSelections.add("SCISSORS");
                         userPlay();
                         break;
                 }
                 break;
             case "PAPER":
+                gamesPlayed++;
+                userSelections.add("PAPER");
                 String computerSelection1 = "";
                 int rng1 = 0 + (int)(Math.random() * ((2 - 0) + 1)); //RNG between min value 0 and max value 2; so
                 //the only random numbers returning are 0,1,2.
@@ -72,19 +89,24 @@ public class Main {
                 switch (computerSelection1) {
                     case "ROCK":
                         System.out.println("\nComputer chooses: ROCK! You win!\n");
+                        computerSelections.add("ROCK");
                         userPlay();
                         break;
                     case "PAPER":
                         System.out.println("\nComputer chooses: PAPER! It is a tie!\n");
+                        computerSelections.add("PAPER");
                         userPlay();
                         break;
                     case "SCISSORS":
                         System.out.println("\nComputer chooses: SCISSORS! You lost!\n");
+                        computerSelections.add("SCISSORS");
                         userPlay();
                         break;
                 }
                 break;
             case "SCISSORS":
+                gamesPlayed++;
+                userSelections.add("SCISSORS");
                 String computerSelection2 = "";
                 int rng2 = 0 + (int)(Math.random() * ((2 - 0) + 1)); //RNG between min value 0 and max value 2; so
                 //the only random numbers returning are 0,1,2.
@@ -95,23 +117,26 @@ public class Main {
                 switch (computerSelection2) {
                     case "ROCK":
                         System.out.println("\nComputer chooses: ROCK! You lost!\n");
+                        computerSelections.add("SCISSORS");
                         userPlay();
                         break;
                     case "PAPER":
                         System.out.println("\nComputer chooses: PAPER! You win!\n");
+                        computerSelections.add("PAPER");
                         userPlay();
                         break;
                     case "SCISSORS":
                         System.out.println("\nComputer chooses: SCISSORS! It is a tie\n");
+                        computerSelections.add("SCISSORS");
                         userPlay();
                         break;
                 }
                 break;
             case "QUIT":
-                System.exit(0);
+                mainMenuSelection();
                 break;
             default:
-                System.out.println("Wrong word entered.");
+                System.out.println("Wrong word entered.\n");
                 userPlay();
                 break;
         }
