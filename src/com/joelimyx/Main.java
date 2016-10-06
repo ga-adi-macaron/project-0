@@ -64,7 +64,7 @@ public class Main {
         while (mainMenu){
             //Game mode
             System.out.println("Welcome to a game of ROCK PAPER SCISSOR.");
-            System.out.println("Please enter a game mode: (Play or History)");
+            System.out.println("Choose a selection: (Play, History or Quit)");
             mode = input.nextLine();
             if(mode.equalsIgnoreCase("play")){
 
@@ -120,8 +120,11 @@ public class Main {
                     System.out.println(history);
                 }
 
+            }else if (mode.equalsIgnoreCase("quit")){
+                System.out.println("Thanks for playing. Have a nice day.");
+                mainMenu = false;
+
             }
-            //
         }
     }
 }
