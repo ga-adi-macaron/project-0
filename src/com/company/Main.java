@@ -32,8 +32,8 @@ public class Main {
             case "HISTORY":
                 System.out.println("\n==GAME HISTORY===\n" + "\nTotal number of games played: " + gamesPlayed + "\n");
                 for (int i = 0; i < userSelections.size(); i++) {
-                        System.out.println("User Selection: " + userSelections.get(i) + " - Computer Selection: " + computerSelections.get(i) +
-                        " - Game Result: " +gameResult.get(i));
+                        System.out.println("User Selection: " + userSelections.get(i) + " - Computer Selection: " +
+                                computerSelections.get(i) + " - Game Result: " +gameResult.get(i));
                 }
                 mainMenuSelection();
                 break;
