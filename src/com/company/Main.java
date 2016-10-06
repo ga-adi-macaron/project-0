@@ -30,11 +30,12 @@ public class Main {
                 userPlay();
                 break;
             case "HISTORY":
-                System.out.println("Total number of games played: " +gamesPlayed);
+                System.out.println("\n==GAME HISTORY===\n" + "\nTotal number of games played: " + gamesPlayed + "\n");
                 for (int i = 0; i < userSelections.size(); i++) {
                         System.out.println("User Selection: " + userSelections.get(i) + " - Computer Selection: " + computerSelections.get(i) +
                         " - Game Result: " +gameResult.get(i));
                 }
+                mainMenuSelection();
                 break;
             case "QUIT":
                 System.exit(0);
