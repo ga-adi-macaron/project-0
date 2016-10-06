@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void rockPaperScissor(String computerChoice, String user_Choice, String winCondition){
+    public static String rockPaperScissor(String computerChoice, String user_Choice){
         //Rock
         System.out.println("The computer pick "+computerChoice+".");
         System.out.println("You pick "+ user_Choice+".");
@@ -13,39 +13,39 @@ public class Main {
             //Rock
             if(user_Choice.equalsIgnoreCase(computerChoice)){
                 System.out.println("It is a DRAW!");
-                winCondition = "Draw";
+                return "a Draw";
             }else if (user_Choice.equalsIgnoreCase("paper")){
                 System.out.println("You WiN!");
-                winCondition = "Won";
-            }else{
+                return  "You Won";
+            }else{ // you are scissor
                 System.out.println("You LOST...");
-                winCondition = "Lost";
+                return  "You Lost...";
             }
 
         }else if(computerChoice.equalsIgnoreCase("Paper")) {
-            //Computer paper
+            //Computer ==  paper
             if (user_Choice.equalsIgnoreCase(computerChoice)) {
                 System.out.println("It is a DRAW!");
-                winCondition = "Draw";
+                return  "a Draw";
             } else if (user_Choice.equalsIgnoreCase("scissor")) {
                 System.out.println("You WiN!");
-                winCondition = "Won";
-            } else {
+                return  "You Won";
+            } else { // you are rock
                 System.out.println("You LOST...");
-                winCondition = "Lost";
+                return  "You Lost...";
             }
-        }else{
 
+        }else{
             //Computer == scissor
             if(user_Choice.equalsIgnoreCase(computerChoice)){
                 System.out.println("It is a DRAW!");
-                winCondition = "Draw";
+                return  "a Draw";
             }else if (user_Choice.equalsIgnoreCase("rock")){
                 System.out.println("You WiN!");
-                winCondition = "Won";
-            }else{
+                return  "You Won";
+            }else{ // you are paper
                 System.out.println("You LOST...");
-                winCondition = "Lost";
+                return  "You Lost...";
             }
         }
     }
@@ -54,9 +54,10 @@ public class Main {
 	// write your code here
         Scanner input = new Scanner(System.in);
         ArrayList<String> historyList = new ArrayList<>();
-        String mode, userChoice, computerChoice, winOrLose="";
+        int numOfGamePlayed = 0;
+        String mode, userChoice, computerChoice="";
         boolean mainMenu = true,
-                inGame = true,
+                inGame,
                 inHistory = true;
 
 
@@ -67,6 +68,8 @@ public class Main {
             mode = input.nextLine();
             if(mode.equalsIgnoreCase("play")){
 
+                inGame = true;
+
                 //Rock Paper Scissor
                 while(inGame) {
                     System.out.println("Enter your choice: (Rock , Paper or Scissor) or \"Quit\" to exit");
@@ -76,31 +79,46 @@ public class Main {
                             || userChoice.equalsIgnoreCase("paper")
                             || userChoice.equalsIgnoreCase("scissor")){
 
+                        String winOrLose="never";
+
                         //Computer Random
                         int rand = (int)(Math.random()*3);
                         switch (rand){
                             case 0:
                                 computerChoice ="Rock";
-                                rockPaperScissor(computerChoice,userChoice,winOrLose);
+                                winOrLose = rockPaperScissor(computerChoice,userChoice);
                                 break;
                             case 1:
                                 computerChoice = "Paper";
-                                rockPaperScissor(computerChoice,userChoice,winOrLose);
+                                winOrLose = rockPaperScissor(computerChoice,userChoice);
                                 break;
                             case 2:
                                 computerChoice = "Scissor";
-                                rockPaperScissor(computerChoice,userChoice,winOrLose);
+                                winOrLose = rockPaperScissor(computerChoice,userChoice);
                                 break;
                         }
-                        System.out.println("Do you want to play again?: (Y/N)");
-                        if (input.nextLine().equalsIgnoreCase("n")){
-                            inGame = false;
+                        //Storing History
+                        numOfGamePlayed++;
+                        historyList.add(numOfGamePlayed+". Computer played: "+
+                                computerChoice+". You played: "+userChoice+
+                                ". The result was "+winOrLose);
+
+                        while (inGame){
+                            System.out.println("Do you want to play again?: (Y/N)");
+                            if (input.nextLine().equalsIgnoreCase("n")){
+                                inGame = false;
+                            }
                         }
                     }else if(userChoice.equalsIgnoreCase("quit")){
+                        //Quit input
                         inGame = false;
                     }
                 }
             }else if (mode.equalsIgnoreCase("history")){
+                for (String history :
+                        historyList) {
+                    System.out.println(history);
+                }
 
             }
             //
