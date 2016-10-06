@@ -57,8 +57,7 @@ public class Main {
         int numOfGamePlayed = 0;
         String mode, userChoice, computerChoice="";
         boolean mainMenu = true,
-                inGame,
-                inHistory = true;
+                inGame;
 
 
         while (mainMenu){
@@ -70,7 +69,7 @@ public class Main {
 
                 inGame = true;
 
-                //Rock Paper Scissor
+                //Rock Paper Scissor play mode
                 while(inGame) {
                     System.out.println("Enter your choice: (Rock , Paper or Scissor) or \"Quit\" to exit");
                     userChoice = input.nextLine();
@@ -81,7 +80,7 @@ public class Main {
 
                         String winOrLose="never";
 
-                        //Computer Random
+                        //Computer Random generator
                         int rand = (int)(Math.random()*3);
                         switch (rand){
                             case 0:
@@ -114,12 +113,14 @@ public class Main {
                         inGame = false;
                     }
                 }
+            // Print out History
             }else if (mode.equalsIgnoreCase("history")){
                 for (String history :
                         historyList) {
                     System.out.println(history);
                 }
 
+            // Quit Game
             }else if (mode.equalsIgnoreCase("quit")){
                 System.out.println("Thanks for playing. Have a nice day.");
                 mainMenu = false;
