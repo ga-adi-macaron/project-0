@@ -8,10 +8,12 @@ public class Main {
     static int gamesPlayed = 0;
     static List<String> userSelections;
     static List<String> computerSelections;
+    static List<String> gameResult;
 
     public static void main(String[] args) {
         computerSelections = new ArrayList<>();
         userSelections = new ArrayList<>();
+        gameResult = new ArrayList<>();
         mainMenuSelection();
     }
 
@@ -30,7 +32,8 @@ public class Main {
             case "HISTORY":
                 System.out.println("Total number of games played: " +gamesPlayed);
                 for (int i = 0; i < userSelections.size(); i++) {
-                        System.out.println("User Selection: " + userSelections.get(i) + " Computer Selection: " + computerSelections.get(i));
+                        System.out.println("User Selection: " + userSelections.get(i) + " - Computer Selection: " + computerSelections.get(i) +
+                        " - Game Result: " +gameResult.get(i));
                 }
                 break;
             case "QUIT":
@@ -65,16 +68,19 @@ public class Main {
                     case "ROCK":
                         System.out.println("\nComputer chooses: ROCK! It is a tie!\n");
                         computerSelections.add("ROCK");
+                        gameResult.add("TIE");
                         userPlay();
                         break;
                     case "PAPER":
                         System.out.println("\nComputer chooses: PAPER! You lost!\n");
                         computerSelections.add("PAPER");
+                        gameResult.add("USER LOST");
                         userPlay();
                         break;
                     case "SCISSORS":
                         System.out.println("\nComputer chooses: SCISSORS! You win!\n");
                         computerSelections.add("SCISSORS");
+                        gameResult.add("USER WON");
                         userPlay();
                         break;
                 }
@@ -93,16 +99,19 @@ public class Main {
                     case "ROCK":
                         System.out.println("\nComputer chooses: ROCK! You win!\n");
                         computerSelections.add("ROCK");
+                        gameResult.add("USER WON");
                         userPlay();
                         break;
                     case "PAPER":
                         System.out.println("\nComputer chooses: PAPER! It is a tie!\n");
                         computerSelections.add("PAPER");
+                        gameResult.add("TIE");
                         userPlay();
                         break;
                     case "SCISSORS":
                         System.out.println("\nComputer chooses: SCISSORS! You lost!\n");
                         computerSelections.add("SCISSORS");
+                        gameResult.add("USER LOST");
                         userPlay();
                         break;
                 }
@@ -121,16 +130,19 @@ public class Main {
                     case "ROCK":
                         System.out.println("\nComputer chooses: ROCK! You lost!\n");
                         computerSelections.add("SCISSORS");
+                        gameResult.add("USER LOST");
                         userPlay();
                         break;
                     case "PAPER":
                         System.out.println("\nComputer chooses: PAPER! You win!\n");
                         computerSelections.add("PAPER");
+                        gameResult.add("USER WON");
                         userPlay();
                         break;
                     case "SCISSORS":
                         System.out.println("\nComputer chooses: SCISSORS! It is a tie\n");
                         computerSelections.add("SCISSORS");
+                        gameResult.add("TIE");
                         userPlay();
                         break;
                 }
