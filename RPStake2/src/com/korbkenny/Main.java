@@ -9,26 +9,25 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.println("~~                             ~~");
-        System.out.println("~~     ROCK, PAPER, SCISSORS   ~~");
-        System.out.println("~~                             ~~");
-
-
             RPS();
 
 
     }
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+
 
     public static void RPS() {
 
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        System.out.println("~~                             ~~");
+        System.out.println("~~     ROCK, PAPER, SCISSORS   ~~");
+        System.out.println("~~                             ~~");
+
         int io = 1;
         List<Integer> theHistory = new ArrayList<>();
-
-//        PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
-//        writer.theHistory;
-//        writer.close();
 
         while (io == 1) {
 
@@ -40,15 +39,15 @@ public class Main {
 
             } else {
                 if(theHistory.size()==7) {
-                    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                    System.out.println("~~                               ~~");
-                    System.out.println("~~   YOU'VE UNLOCKED HARD MODE   ~~");
-                    System.out.println("~~                               ~~");
-                    System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                    System.out.println(ANSI_RED +"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + ANSI_RESET);
+                    System.out.println(ANSI_RED +"~~                               ~~" + ANSI_RESET);
+                    System.out.println(ANSI_RED +"~~   YOU'VE UNLOCKED HARD MODE   ~~" + ANSI_RESET);
+                    System.out.println(ANSI_RED +"~~                               ~~" + ANSI_RESET);
+                    System.out.println(ANSI_RED +"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + ANSI_RESET);
                 }
 
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                System.out.println("~ play ~ history ~ HARD MODE ~ quit ~");
+                System.out.println("~ play ~ history ~ "+ANSI_RED + "HARD MODE" + ANSI_RESET +" ~ quit ~");
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
 
@@ -89,18 +88,32 @@ public class Main {
 
                         userInput.toLowerCase();
 
-                        if (userInput.equals("rock")) {
-                            results = 30 + compChoice;
-                            theHistory.add(results);
-                        } else if (userInput.equals("paper")) {
-                            results = 20 + compChoice;
-                            theHistory.add(results);
-                        } else if (userInput.equals("scissors")) {
-                            results = 10 + compChoice;
-                            theHistory.add(results);
-                        } else {
-                            results = 0;
-                        }
+                        switch(userInput){
+                            case "rock": results = 30 + compChoice;
+                                theHistory.add(results);
+                                break;
+                            case "paper": results = 20 + compChoice;
+                                theHistory.add(results);
+                                break;
+                            case "scissors": results = 10 + compChoice;
+                                theHistory.add(results);
+                                break;
+                            default: results = 0;
+                            }
+
+//
+//                        if (userInput.equals("rock")) {
+//                            results = 30 + compChoice;
+//                            theHistory.add(results);
+//                        } else if (userInput.equals("paper")) {
+//                            results = 20 + compChoice;
+//                            theHistory.add(results);
+//                        } else if (userInput.equals("scissors")) {
+//                            results = 10 + compChoice;
+//                            theHistory.add(results);
+//                        } else {
+//                            results = 0;
+//                        }
 
 
                         if (results > 0) {
@@ -117,7 +130,8 @@ public class Main {
                                 case 23:
                                 case 12:
                                     System.out.println("  Your enemy has been vanquished!");
-                                    System.out.println("      Long live the queen!\n");
+                                    System.out.println("      You must live with this");
+                                    System.out.println("     For the rest of your life.\n");
                                     break;
                                 case 32:
                                 case 21:
@@ -166,16 +180,13 @@ public class Main {
                         }
                     }
                 }
-                //~~~~~~~~~~Rules~~~~~~~~~~
-                else if (userInput.equals("rules")) {
-                    System.out.println("");
-                }
+
 
                 //~~~~~~~~~~HARDMODE~~~~~~~~~~~
                 else if(userInput.equals("hard mode")){
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println("           choose:               ");
-            System.out.println("~  ROCK  ~  PAPER  ~  SCISSORS  ~");
+            System.out.println(ANSI_RED +"           choose:               " + ANSI_RESET);
+            System.out.println(ANSI_RED +"~  ROCK  ~  PAPER  ~  SCISSORS  ~" + ANSI_RESET);
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
             input = new Scanner(System.in);
@@ -183,10 +194,11 @@ public class Main {
 
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("~~                             ~~");
-            System.out.println("~~          YOU LOST           ~~");
+            System.out.println("~~          "+ANSI_RED+"YOU LOST"+ANSI_RESET+"           ~~");
             System.out.println("~~                             ~~");
             System.out.println("~~                             ~~");
-            System.out.println("~~  runProgram: autoQuit.exe   ~~");
+            System.out.println("~~  "+ANSI_RED+"runProgram: autoQuit.exe"+ANSI_RESET+"   ~~");
+            System.out.println("~~  "+ANSI_RED+"runProgram: rm_everything"+ANSI_RESET+"  ~~");
             System.out.println("~~                             ~~");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
@@ -199,6 +211,9 @@ public class Main {
                     io = 0;
                 }
 
+                else{
+                    System.out.println("wait, wut?");
+                }
 
 
             }
