@@ -4,13 +4,23 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.logging.FileHandler;
 
 public class Main {
+
+    static String ANSI_RESET = "\u001B[0m";///Color list retrieved off: http://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
+    static String ANSI_BLACK = "\u001B[30m";
+    static String ANSI_RED = "\u001B[31m";
+    static String ANSI_GREEN = "\u001B[32m";
+    static String ANSI_YELLOW = "\u001B[33m";
+    static String ANSI_BLUE = "\u001B[34m";
+    static String ANSI_PURPLE = "\u001B[35m";
+    static String ANSI_CYAN = "\u001B[36m";
+    static String ANSI_WHITE = "\u001B[37m";
+
     static ArrayList<String> results = new ArrayList<>();
     static String header = "============Welcome to Game==============";//FixMe: Get title
     static String mainPrompt = "Type in one of the following: \n \"Play\" \n \"History\" \n \"Option\" \n \"Quit\" \n";
-    static String[] validEntries = {"rock", "scissors", "paper", "r", "s", "p"}; // 0 beats 1, 1 beats 2, 2 beats 0 Keep that dynamic or everything falls apart.
+    static String[] validEntries = {"fire", "grass", "water", "f", "g", "w"}; // 0 beats 1, 1 beats 2, 2 beats 0 Keep that dynamic or everything falls apart.
     static String playerActionMessage = "Enter \"" + validEntries[0] + "\", \"" + validEntries[1] + "\" or \"" + validEntries[2] + "\" or just the first letter:";
     static String optionsMessage = "Choose which set you wish to play with from below: \n 1.(default) Elemental set \n 2. Classic set \n 3. Political set \n 4. Custom set \n 5. Keep current settings and exit.\n 6.Delete save file(No going back)\n";
 
@@ -33,6 +43,11 @@ public class Main {
     static String currentDirectory;
     static boolean loggedStartSesh = false;
 
+    static String fire = ANSI_RED + "fire" + ANSI_RESET;
+    static String water = ANSI_BLUE + "water" + ANSI_RESET;
+    static String grass = ANSI_CYAN + "grass" + ANSI_RESET;
+
+
 
 
 
@@ -49,6 +64,8 @@ public class Main {
     static int round;
     static int bestOf;
     static PrintWriter writer;
+
+
 
 
 //ToDo: Make a basic AI
@@ -179,6 +196,7 @@ public class Main {
         customSet[2] = thirdTemp;
         changeSet(customSet);
     }
+
     public static boolean checkIfAllowed(String... strings){
         ArrayList<String> firstLetters= new ArrayList();
         for (String s:strings){
@@ -238,6 +256,15 @@ public class Main {
     public static void playRound() {
         if (playerScore < (bestOf/2)+1 && cpuScore <(bestOf/2)+1) {//Checks that both players have less than required score. e.g. 2 of 3, 3 of 5, 4 of 7
             round++;
+            playerActionMessage = adjustColor(playerActionMessage);
+//            if (validEntries[0].equals("fire") && validEntries[1].equals("grass") && validEntries[2].equals("water")){
+//                playerActionMessage = "Enter \"" + fire + "\", \"" + grass + "\" or \"" + water + "\" or just the first letter:";
+//
+//            }else{
+//                playerActionMessage = "Enter \"" + validEntries[0] + "\", \"" + validEntries[1] + "\" or \"" + validEntries[2] + "\" or just the first letter:";
+//
+//            }
+
             String playerThrow = removeCaseSensitive(getInput(playerActionMessage));
             boolean validInput = false;
             if (!loggedStartSesh){
@@ -294,6 +321,35 @@ public class Main {
             displayMainMenu();
         }
     }
+
+    public static String adjustColor(String input) {
+        String newInput = "";
+        if (validEntries[0].equals("fire") && validEntries[1].equals("grass") && validEntries[2].equals("water")) {
+            for (String word : input.split(" ")) {
+                switch (word) {
+                    case "\"fire\",":
+                        newInput += fire+ " ";
+                        break;
+                    case "\"grass\"":
+                        newInput += grass+ " ";
+                        break;
+                    case "\"water\"":
+                        newInput += water+ " ";
+                        break;
+                    default:
+                        newInput += word+ " ";
+                        break;
+                }
+
+            }
+
+        }
+        else{
+            newInput= input;
+        }
+        return newInput;
+    }
+
 
     public static String checkOutcome(String playerThrows) {
         String winner;
