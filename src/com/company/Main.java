@@ -78,6 +78,9 @@ public class Main {
                         System.out.println("User Selection: " + userHistory.get(i) + " - Computer Selection: " +
                                 computerHistory.get(i) + " - Game Result: " +gameHistory.get(i));
                     }
+                    userHistory.clear();
+                    computerHistory.clear();
+                    gameHistory.clear();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
