@@ -10,12 +10,19 @@ public class Main {
     static String mainPrompt = "Type in one of the following: \n \"Play\" \n \"History\" \n \"Option\" \n \"Quit\" \n";
     static String[] validEntries = {"rock", "scissors", "paper", "r", "s", "p"}; // 0 beats 1, 1 beats 2, 2 beats 0 Keep that dynamic or everything falls apart.
     static String playerActionMessage = "Enter \"" + validEntries[0] + "\", \"" + validEntries[1] + "\" or \"" + validEntries[2] + "\" or just the first letter:";
-    static String optionsMessage = "Choose which set you wish to play with from below: \n 1.(default) Elemental set \n 2. Classic set \n 3. Political set \n 4. Custom set \n 5. Keep current settings and exit.";
+    static String optionsMessage = "Choose which set you wish to play with from below: \n 1.(default) Elemental set \n 2. Classic set \n 3. Political set \n 4. Custom set \n 5. Keep current settings and exit.\n";
+
+    static String customPromptMessage = "Go ahead and put in your own variables. The order is:\n1st beats 2nd, 2nd beats 3rd, 3rd beats 1st.\n(Also keep in mind, for the time being, they each have to start with a different letter.)\n \n ";
+    static String firstCustomMessage = "What is your first variable?\n";
+    static String secondCustomMessage = "Enter your second variable, this one loses to the first\n";
+    static String thirdCustomMessage = "Now your last variable, this one loses to the previous but beats the first\n";
 
 
     static String[] classicSet= {"rock", "scissors", "paper"};
     static String[] elementalSet= {"fire", "grass", "water"};
     static String[] politicalSet= {"bernie","trump","hillary"};
+
+
 
 
 
@@ -94,7 +101,7 @@ public class Main {
                         changeSet(politicalSet);
                         break;
                     case 4:
-                        //makeCustom();
+                        makeCustom();
                         break;
                     case 5:
                         displayMainMenu();
@@ -106,6 +113,39 @@ public class Main {
             System.out.println("That's not an integer.");
             openOptions();
         }
+
+    }
+    public static void makeCustom(){
+        System.out.println(customPromptMessage);
+        String[] customSet= new String[3];
+        customSet[0] = removeCaseSensitive(getInput(firstCustomMessage));
+        String secondTemp=removeCaseSensitive(getInput(secondCustomMessage));
+        boolean secondAllowed= checkIfAllowed(customSet[0],secondTemp);
+        while(!secondAllowed){//If not allowed, prompt player until they give an allowed value.
+            secondTemp = removeCaseSensitive(getInput(secondCustomMessage));
+            secondAllowed = checkIfAllowed(customSet[0],secondTemp);
+        }
+        customSet[1] = secondTemp;
+        String thirdTemp = removeCaseSensitive(getInput(thirdCustomMessage));
+        boolean thirdAllowed = (checkIfAllowed(customSet[0], customSet[1],thirdTemp));
+        while(!thirdAllowed){
+            thirdTemp = removeCaseSensitive(getInput(thirdCustomMessage));
+            thirdAllowed = checkIfAllowed(customSet[0], customSet[1],thirdTemp);
+        }
+        customSet[2] = thirdTemp;
+        changeSet(customSet);
+    }
+    public static boolean checkIfAllowed(String... strings){
+        ArrayList<String> firstLetters= new ArrayList();
+        for (String s:strings){
+            if (firstLetters.contains(s.substring(0,1))){ //Is there a duplicate? Stop and return notAllowed.
+                System.out.println("\nThat entry has the same first letter as a previous one you entered.\n");
+                return false;
+            }else{
+                firstLetters.add(s.substring(0,1)); //No duplicates? Add this value to the arraylist.
+            }
+        }
+        return true; //Went through all the iterations, no duplicates were found, return true.
 
     }
 
@@ -138,7 +178,7 @@ public class Main {
 
     public static void displayHistory() {
         if (results.size() == 0) {
-            System.out.println("There is no history to display yet. \n Why don't you play a few rounds?");
+            System.out.println("There is no history to display yet. \nWhy don't you play a few rounds?");
         } else {
             for (String s : results) {
                 System.out.println(s);
@@ -148,8 +188,7 @@ public class Main {
     }
 
     public static void endGame() {
-        System.out.println("This will do a thing too. End Game");
-        displayMainMenu();
+        System.out.println("Thanks for playing");
     }
 
     public static void playRound() {
@@ -163,17 +202,14 @@ public class Main {
                     break;
                 }
             }
-            if (validInput) {
-                switch (playerThrow) {//ToDo: Change the case values to their index in validEntries.
-                    case "r":
-                        playerThrow = "rock";
-                        break;
-                    case "s":
-                        playerThrow = "scissors";
-                        break;
-                    case "p":
-                        playerThrow = "paper";
-                        break;
+
+            if (validInput) { //Changes shorthand entry into full word.
+                if (validEntries[3].equals(playerThrow)){
+                    playerThrow = validEntries[0];
+                }else if (validEntries[4].equals(playerThrow)){
+                    playerThrow = validEntries[1];
+                }else if(validEntries[5].equals(playerThrow)){
+                    playerThrow=validEntries[2];
                 }
                 System.out.println(checkOutcome(playerThrow));
                 playRound();
@@ -239,7 +275,7 @@ public class Main {
         String logMessage = String.format("Round#%s|| Win went to: %s | Player threw: %s | Computer threw: %s",String.valueOf(round), winner, playersThrow, computersThrow);
         results.add(logMessage);
     }
-    //FixMe: Something funky going on in this method that is causing it to keep userInput from invalid user input.
+
     public static void askBestOf() {
         String userInput = getInput(bestOfPrompt);
         try {
