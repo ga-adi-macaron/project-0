@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class Main {
     static String mRock =
-            "****************************************\n"+
+                    "****************************************\n"+
                     "********************        ***    *****\n" +
                     "*************         *****           **\n" +
                     "*********            ***************  **\n" +
@@ -30,7 +30,7 @@ public class Main {
                     "****************************************\n";
 
     static String mScissor =
-            "**************************************************\n" +
+                    "**************************************************\n" +
                     "**           *************************************\n" +
                     "*             ***************************       **\n" +
                     "*   *******    **********************            *\n" +
@@ -47,7 +47,23 @@ public class Main {
                     "*             ***************************      ***\n" +
                     "***         **************************************\n" +
                     "**************************************************\n";
-    static String mPaper;
+    static String mPaper =
+                    "********************************\n" +
+                    "*******  *************  ********\n" +
+                    "******  ***************  *******\n" +
+                    "******  ***************  *******\n" +
+                    "****    ********  **  *  *******\n" +
+                    "***   * ***  ***  **  *  *******\n" +
+                    "**      ***  ***  **  *  *******\n" +
+                    "****  * ***  ***  **  *  *******\n" +
+                    "*******  **  ***  **  *  *******\n" +
+                    "******** *** ***  **     *******\n" +
+                    "********  ** ***  **   *********\n" +
+                    "*********     **  **  **********\n" +
+                    "***********          ***********\n" +
+                    "*************    ***************\n" +
+                    "********************************\n";
+
     public static String rockPaperScissor(String computerChoice, String user_Choice){
 
         if (computerChoice.equals("Rock")){
@@ -61,7 +77,7 @@ public class Main {
                 System.out.println("It is a DRAW!");
                 return "a Draw";
             }else if (user_Choice.equalsIgnoreCase("paper")){
-                System.out.println("You pick \n"+ user_Choice);
+                System.out.println("You pick \n"+ mPaper);
                 System.out.println("You WiN!");
                 return  "You Won";
             }else{ // you are scissor
@@ -72,8 +88,11 @@ public class Main {
 
         }else if(computerChoice.equalsIgnoreCase("Paper")) {
             //Computer ==  paper
+
+            System.out.println("The computer pick \n"+mPaper);
+
             if (user_Choice.equalsIgnoreCase(computerChoice)) {
-                System.out.println("You pick \n"+ user_Choice);
+                System.out.println("You pick \n"+ mPaper);
                 System.out.println("It is a DRAW!");
                 return  "a Draw";
             } else if (user_Choice.equalsIgnoreCase("scissor")) {
@@ -100,7 +119,7 @@ public class Main {
                 System.out.println("You WiN!");
                 return  "You Won";
             }else{ // you are paper
-                System.out.println("You pick \n"+ user_Choice);
+                System.out.println("You pick \n"+ mPaper);
                 System.out.println("You LOST...");
                 return  "You Lost...";
             }
@@ -124,15 +143,6 @@ public class Main {
 //
         //******************************************************************************************
 
-
-       /* String newScissor="";
-        newScissor=scissor.replaceAll(" ","*");
-        for (int i = 0; i < newScissor.length(); i++) {
-            if (newScissor.charAt(i) != '*' && newScissor.charAt(i) != '\n') {
-                newScissor = newScissor.replace(newScissor.charAt(i), ' ');
-            }
-        }
-        System.out.println(scissor);*/
         //******************************************************************************************
 //        _______   ________   ________
 //        |\  ___ \ |\   ___  \|\   ___ \
