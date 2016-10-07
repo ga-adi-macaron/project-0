@@ -9,20 +9,11 @@ import java.util.Scanner;
 
 public class Main {
     static int gamesPlayed = 0;
-    static List<String> userSelections;
-    static List<String> userHistory;
-    static List<String> computerSelections;
-    static List<String> computerHistory;
-    static List<String> gameResult;
+    static List<String> currentGameList;
     static List<String> gameHistory;
 
-
     public static void main(String[] args) {
-        computerSelections = new ArrayList<>();
-        userHistory = new ArrayList<>();
-        userSelections = new ArrayList<>();
-        computerHistory = new ArrayList<>();
-        gameResult = new ArrayList<>();
+        currentGameList = new ArrayList<>();
         gameHistory = new ArrayList<>();
         mainMenuSelection();
     }
@@ -65,22 +56,15 @@ public class Main {
                         readArray.add(s.nextLine());
                     }
                     s.close();
-                    for (int i = 0; i < readArray.size(); i+=3) {
-                        userHistory.add(readArray.get(i));
-                    }
-                    for (int i = 1; i < readArray.size(); i+=3) {
-                        computerHistory.add(readArray.get(i));
-                    }
-                    for (int i = 2; i < readArray.size(); i+=3) {
+                    for (int i = 0; i < readArray.size(); i++) {
                         gameHistory.add(readArray.get(i));
                     }
-                    System.out.println("\n==GAME HISTORY FROM PREVIOUS SESSION===\n");
-                    for (int i = 0; i < userHistory.size(); i++) {
-                        System.out.println("User Selection: " + userHistory.get(i) + " - Computer Selection: " +
-                                computerHistory.get(i) + " - Game Result: " +gameHistory.get(i));
+                    System.out.println("\n==GAME HISTORY FROM PREVIOUS SESSION===\n" + "\nTotal number of games played " +
+                            "last session: " + gameHistory.size()/3 + "\n");
+                    for (int i = 0; i < gameHistory.size()-2; i+=3) {
+                        System.out.println("User Selection: " + gameHistory.get(i) + " - Computer Selection: " +
+                                gameHistory.get(i+1) + " - Game Result: " + gameHistory.get(i+2));
                     }
-                    userHistory.clear();
-                    computerHistory.clear();
                     gameHistory.clear();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -89,15 +73,14 @@ public class Main {
                 System.out.println("No Game Results Yet!"); }
         } else {
             System.out.println("\n==GAME HISTORY===\n" + "\nTotal number of games played this session: " + gamesPlayed + "\n");
-            for (int i = 0; i < userSelections.size(); i++) {
-                System.out.println("User Selection: " + userSelections.get(i) + " - Computer Selection: " +
-                        computerSelections.get(i) + " - Game Result: " + gameResult.get(i));
+            for (int i = 0; i < currentGameList.size()-2; i+=3) {
+                System.out.println("User Selection: " + currentGameList.get(i) + " - Computer Selection: " +
+                        currentGameList.get(i+1) + " - Game Result: " + currentGameList.get(i+2));
             }
         }
     }
 
     public static void userPlay() {
-
         System.out.println("Type in ROCK, PAPER or SCISSORS to play." +
                 "\nOr type QUIT to go back to the Main Menu\n");
         Scanner input = new Scanner(System.in);
@@ -105,7 +88,7 @@ public class Main {
         switch (userInput.toUpperCase()) {
             case "ROCK":
                 gamesPlayed++;
-                userSelections.add("ROCK");
+                currentGameList.add("ROCK");
                 String computerselection0 = "";
                 int rng0 = 0 + (int)(Math.random() * ((2 - 0) + 1)); //RNG between min value 0 and max value 2; so
                 //the only random numbers returning are 0,1,2.
@@ -116,27 +99,27 @@ public class Main {
                 switch (computerselection0) {
                     case "ROCK":
                         System.out.println("\nComputer chooses: ROCK! It is a tie!\n");
-                        computerSelections.add("ROCK");
-                        gameResult.add("TIE");
+                        currentGameList.add("ROCK");
+                        currentGameList.add("TIE");
                         userPlay();
                         break;
                     case "PAPER":
                         System.out.println("\nComputer chooses: PAPER! You lost!\n");
-                        computerSelections.add("PAPER");
-                        gameResult.add("USER LOST");
+                        currentGameList.add("PAPER");
+                        currentGameList.add("USER LOST");
                         userPlay();
                         break;
                     case "SCISSORS":
                         System.out.println("\nComputer chooses: SCISSORS! You win!\n");
-                        computerSelections.add("SCISSORS");
-                        gameResult.add("USER WON");
+                        currentGameList.add("SCISSORS");
+                        currentGameList.add("USER WON");
                         userPlay();
                         break;
                 }
                 break;
             case "PAPER":
                 gamesPlayed++;
-                userSelections.add("PAPER");
+                currentGameList.add("PAPER");
                 String computerSelection1 = "";
                 int rng1 = 0 + (int)(Math.random() * ((2 - 0) + 1)); //RNG between min value 0 and max value 2; so
                 //the only random numbers returning are 0,1,2.
@@ -147,27 +130,27 @@ public class Main {
                 switch (computerSelection1) {
                     case "ROCK":
                         System.out.println("\nComputer chooses: ROCK! You win!\n");
-                        computerSelections.add("ROCK");
-                        gameResult.add("USER WON");
+                        currentGameList.add("ROCK");
+                        currentGameList.add("USER WON");
                         userPlay();
                         break;
                     case "PAPER":
                         System.out.println("\nComputer chooses: PAPER! It is a tie!\n");
-                        computerSelections.add("PAPER");
-                        gameResult.add("TIE");
+                        currentGameList.add("PAPER");
+                        currentGameList.add("TIE");
                         userPlay();
                         break;
                     case "SCISSORS":
                         System.out.println("\nComputer chooses: SCISSORS! You lost!\n");
-                        computerSelections.add("SCISSORS");
-                        gameResult.add("USER LOST");
+                        currentGameList.add("SCISSORS");
+                        currentGameList.add("USER LOST");
                         userPlay();
                         break;
                 }
                 break;
             case "SCISSORS":
                 gamesPlayed++;
-                userSelections.add("SCISSORS");
+                currentGameList.add("SCISSORS");
                 String computerSelection2 = "";
                 int rng2 = 0 + (int)(Math.random() * ((2 - 0) + 1)); //RNG between min value 0 and max value 2; so
                 //the only random numbers returning are 0,1,2.
@@ -178,41 +161,40 @@ public class Main {
                 switch (computerSelection2) {
                     case "ROCK":
                         System.out.println("\nComputer chooses: ROCK! You lost!\n");
-                        computerSelections.add("SCISSORS");
-                        gameResult.add("USER LOST");
+                        currentGameList.add("SCISSORS");
+                        currentGameList.add("USER LOST");
                         userPlay();
                         break;
                     case "PAPER":
                         System.out.println("\nComputer chooses: PAPER! You win!\n");
-                        computerSelections.add("PAPER");
-                        gameResult.add("USER WON");
+                        currentGameList.add("PAPER");
+                        currentGameList.add("USER WON");
                         userPlay();
                         break;
                     case "SCISSORS":
                         System.out.println("\nComputer chooses: SCISSORS! It is a tie\n");
-                        computerSelections.add("SCISSORS");
-                        gameResult.add("TIE");
+                        currentGameList.add("SCISSORS");
+                        currentGameList.add("TIE");
                         userPlay();
                         break;
                 }
                 break;
             case "QUIT":
-                //Write User selections to File1
-                // Creating a PrintStream object
-                PrintStream ps = null;
+                if (gamesPlayed != 0) {
+                    //Write User selections to File1
+                    // Creating a PrintStream object
+                    PrintStream ps = null;
 
-                try {
-                    ps = new PrintStream("/Users/serkanbal/Desktop/project-0/save-files/history.txt");
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                    try {
+                        ps = new PrintStream("/Users/serkanbal/Desktop/project-0/save-files/history.txt");
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
 
-                //Going through each object and writing it to file
-                for (int i = 0; i < userSelections.size(); i++) {
-                    ps.println(userSelections.get(i));
-                    ps.println(computerSelections.get(i));
-                    ps.println(gameResult.get(i));
-
+                    //Going through each object and writing it to file
+                    for (int i = 0; i < currentGameList.size(); i++) {
+                        ps.println(currentGameList.get(i));
+                    }
                 }
                 mainMenuSelection();
                 break;
