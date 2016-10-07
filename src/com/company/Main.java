@@ -10,13 +10,20 @@ import java.util.Scanner;
 public class Main {
     static int gamesPlayed = 0;
     static List<String> userSelections;
+    static List<String> userHistory;
     static List<String> computerSelections;
+    static List<String> computerHistory;
     static List<String> gameResult;
+    static List<String> gameHistory;
+
 
     public static void main(String[] args) {
         computerSelections = new ArrayList<>();
+        userHistory = new ArrayList<>();
         userSelections = new ArrayList<>();
+        computerHistory = new ArrayList<>();
         gameResult = new ArrayList<>();
+        gameHistory = new ArrayList<>();
         mainMenuSelection();
     }
 
@@ -38,7 +45,6 @@ public class Main {
                         System.out.println("User Selection: " + userSelections.get(i) + " - Computer Selection: " +
                                 computerSelections.get(i) + " - Game Result: " +gameResult.get(i));
                 }
-
                 mainMenuSelection();
                 break;
             case "QUIT":
@@ -54,8 +60,18 @@ public class Main {
                             readArray.add(s.nextLine());
                         }
                         s.close();
-                        for (int i = 0; i < readArray.size(); i++) {
-                            System.out.println(readArray.get(i));
+                        for (int i = 0; i < readArray.size(); i+=3) {
+                            userHistory.add(readArray.get(i));
+                        }
+                        for (int i = 1; i < readArray.size(); i+=3) {
+                            computerHistory.add(readArray.get(i));
+                        }
+                        for (int i = 2; i < readArray.size(); i+=3) {
+                            gameHistory.add(readArray.get(i));
+                        }
+                        for (int i = 0; i < userHistory.size(); i++) {
+                            System.out.println("User Selection: " + userHistory.get(i) + " - Computer Selection: " +
+                                    computerHistory.get(i) + " - Game Result: " +gameHistory.get(i));
                         }
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
