@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import static java.lang.Thread.sleep;
+
 public class Main {
 
     static String ANSI_RESET = "\u001B[0m";///Color list retrieved off: http://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
@@ -18,7 +20,7 @@ public class Main {
     static String ANSI_WHITE = "\u001B[37m";
 
     static ArrayList<String> results = new ArrayList<>();
-    static String header = ANSI_GREEN+"============Welcome to Roshambo-2000=============="+ANSI_RESET;//FixMe: Get title
+    static String header = ANSI_GREEN+"============Welcome to Roshambo-3000=============="+ANSI_RESET;//FixMe: Get title
     static String mainPrompt = "Type in one of the following: \n \"Play\" \n \"History\" \n \"Option\" \n \"Quit\" \n";
     static String[] validEntries = {"fire", "grass", "water", "f", "g", "w"}; // 0 beats 1, 1 beats 2, 2 beats 0 Keep that dynamic or everything falls apart.
     static String playerActionMessage = "Enter \"" + validEntries[0] + "\", \"" + validEntries[1] + "\" or \"" + validEntries[2] + "\" or just the first letter:";
@@ -47,6 +49,11 @@ public class Main {
     static String water = ANSI_BLUE + "water" + ANSI_RESET;
     static String grass = ANSI_CYAN + "grass" + ANSI_RESET;
 
+    static String fireAnimate1 = ANSI_RED+"  (\n (,) "+ANSI_RESET;
+    static String fireAnimate2 = ANSI_RED+"  &\n (,) "+ANSI_RESET;
+    static String fireAnimate3 = ANSI_RED+"  )\n (,) "+ANSI_RESET;
+    static String waterAnimate =ANSI_BLUE+""+ANSI_RESET;
+    static String grassAnimate=ANSI_CYAN+""+ANSI_RESET;
 
 
 
@@ -63,20 +70,6 @@ public class Main {
 
     static int round;
     static int bestOf;
-    static PrintWriter writer;
-
-
-
-
-//ToDo: Make a basic AI
-    /*
-    Create array of players past 3 moves.
-    -If all moves are the same assume the player is spamming so computer anticipates
-     the next move to be the same and plays the counter to it.
-     -If all moves are different, assume that the player is cycling through the list, so play the counter to the next anticipated one.
-     */
-    //ToDo: Audio? Graphics?
-    //
 
     public static void main(String[] args) {
         round = 0;//ToDo: change this value to get the value from load if I'm going to do that.
@@ -127,6 +120,27 @@ public class Main {
             System.out.println("That is not a valid entry.\n");
             displayMainMenu();
         }
+    }
+    public static void fireAnimation(){
+        System.out.println(fireAnimate1+ "\n");
+        try {
+            sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(fireAnimate2 + "\n");
+        try {
+            sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(fireAnimate3 + "\n");
+            try {
+                sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        fireAnimation();
     }
 
     public static void openOptions(){
@@ -259,14 +273,6 @@ public class Main {
         if (playerScore < (bestOf/2)+1 && cpuScore <(bestOf/2)+1) {//Checks that both players have less than required score. e.g. 2 of 3, 3 of 5, 4 of 7
             round++;
             playerActionMessage = adjustColor(playerActionMessage);
-//            if (validEntries[0].equals("fire") && validEntries[1].equals("grass") && validEntries[2].equals("water")){
-//                playerActionMessage = "Enter \"" + fire + "\", \"" + grass + "\" or \"" + water + "\" or just the first letter:";
-//
-//            }else{
-//                playerActionMessage = "Enter \"" + validEntries[0] + "\", \"" + validEntries[1] + "\" or \"" + validEntries[2] + "\" or just the first letter:";
-//
-//            }
-
             String playerThrow = removeCaseSensitive(getInput(playerActionMessage));
             boolean validInput = false;
             if (!loggedStartSesh){
@@ -445,8 +451,6 @@ public class Main {
     }
 
 
-
-
     public static void cpuMemorizes(String pMove){
         cpuMemory[2]=cpuMemory[1];
         cpuMemory[1]=cpuMemory[0];
@@ -471,15 +475,18 @@ public class Main {
     public static void askBestOf() {
         String userInput = getInput(bestOfPrompt);
         try {
-            Integer.valueOf(userInput);
-            if (Integer.valueOf(userInput) > gameUpperLimit) {
+            int x = Integer.valueOf(userInput);
+            if (x<0){
+                askBestOf();
+            }
+            if (x> gameUpperLimit) {
                 System.out.println("For arbitrary reasons that I made up, you can't play that many games. Please enter a valid number\n");
                 askBestOf();
             } else if (Integer.valueOf(userInput) % 2 == 0) {
                 System.out.println("That is an even number. \n(The reason for it being odd is to prevent matches ending in ties.)\n");
                 askBestOf();
             } else{
-                bestOf = Integer.valueOf(userInput);
+                bestOf = Math.abs(x);
             }
         } catch (Exception e) {
             System.out.println("That is not an integer. Please input an integer");
