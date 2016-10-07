@@ -199,7 +199,7 @@ public class Main {
                 mainMenuSelection();
                 break;
             default:
-                System.out.println("Wrong word entered.\n");
+                System.out.println("\nWrong word entered.\n");
                 userPlay();
                 break;
         }
