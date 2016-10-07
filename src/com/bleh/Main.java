@@ -136,6 +136,15 @@ public class Main {
         System.out.println("You have won " + wins.size());
         System.out.println("I have won " + losses.size());
         System.out.println("We have tied " + ties.size());
+        if (losses.size() < wins.size()){
+            System.out.println("You are in the lead!");
+        }
+        else if (wins.size() < losses.size()){
+            System.out.println("I am in the lead!");
+        }
+        else if (wins.size() == losses.size()){
+            System.out.println("We are tied!");
+        }
         mainMenu();
     }
 
