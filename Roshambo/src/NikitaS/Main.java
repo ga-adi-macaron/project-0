@@ -94,7 +94,7 @@ public class Main {
                         changeSet(politicalSet);
                         break;
                     case 4:
-                        makeCustom();
+                        //makeCustom();
                         break;
                     case 5:
                         displayMainMenu();
@@ -109,8 +109,21 @@ public class Main {
 
     }
 
-    public static void changeSet(String[] newSet){
-        
+    public static void changeSet(String[] newSet){//FixMe: If first letters are the same for multiple words I would need to take first 2 or more.
+        String firstTrans = newSet[0].substring(0,1);//First letter of first word.
+        String secondTrans = newSet[1].substring(0,1);//First letter of second word.
+        String thirdTrans = newSet[2].substring(0,1);//First letter of third word.
+
+        validEntries[0]=newSet[0];
+        validEntries[1]=newSet[1];
+        validEntries[2]=newSet[2];
+        validEntries[3]= firstTrans;
+        validEntries[4]= secondTrans;
+        validEntries[5]=thirdTrans;
+        System.out.println("The new set list is: "+validEntries[0]+", "+ validEntries[1]+ ", "+ validEntries[2]+ ".");
+        playerActionMessage = "Enter \"" + validEntries[0] + "\", \"" + validEntries[1] + "\" or \"" + validEntries[2] + "\" or just the first letter:";
+        displayMainMenu();
+
     }
 
     public static String getInput(String message) {//Taken from integer calculator
@@ -151,7 +164,7 @@ public class Main {
                 }
             }
             if (validInput) {
-                switch (playerThrow) {
+                switch (playerThrow) {//ToDo: Change the case values to their index in validEntries.
                     case "r":
                         playerThrow = "rock";
                         break;
@@ -223,7 +236,7 @@ public class Main {
     }
 
     public static void logResults(String winner, String computersThrow, String playersThrow) {
-        String logMessage = String.format("Round#%s|| Win went to: %s | Player threw: %s | Computer threw: %s",String.valueOf(round), winner, computersThrow, playersThrow);
+        String logMessage = String.format("Round#%s|| Win went to: %s | Player threw: %s | Computer threw: %s",String.valueOf(round), winner, playersThrow, computersThrow);
         results.add(logMessage);
     }
     //FixMe: Something funky going on in this method that is causing it to keep userInput from invalid user input.
