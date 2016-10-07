@@ -40,50 +40,55 @@ public class Main {
                 userPlay();
                 break;
             case "HISTORY":
-                System.out.println("\n==GAME HISTORY===\n" + "\nTotal number of games played: " + gamesPlayed + "\n");
-                for (int i = 0; i < userSelections.size(); i++) {
-                        System.out.println("User Selection: " + userSelections.get(i) + " - Computer Selection: " +
-                                computerSelections.get(i) + " - Game Result: " +gameResult.get(i));
-                }
+                userHistory();
                 mainMenuSelection();
                 break;
             case "QUIT":
                 System.exit(0);
-                break;
-            case "PRINT":
-                File history = new File("/Users/serkanbal/Desktop/project-0/save-files/history.txt");
-                if (history.exists()) {
-                    try {
-                        Scanner s = new Scanner(new File("/Users/serkanbal/Desktop/project-0/save-files/history.txt"));
-                        ArrayList<String> readArray = new ArrayList<>();
-                        while (s.hasNextLine()) {
-                            readArray.add(s.nextLine());
-                        }
-                        s.close();
-                        for (int i = 0; i < readArray.size(); i+=3) {
-                            userHistory.add(readArray.get(i));
-                        }
-                        for (int i = 1; i < readArray.size(); i+=3) {
-                            computerHistory.add(readArray.get(i));
-                        }
-                        for (int i = 2; i < readArray.size(); i+=3) {
-                            gameHistory.add(readArray.get(i));
-                        }
-                        for (int i = 0; i < userHistory.size(); i++) {
-                            System.out.println("User Selection: " + userHistory.get(i) + " - Computer Selection: " +
-                                    computerHistory.get(i) + " - Game Result: " +gameHistory.get(i));
-                        }
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    System.out.println("File cannot be found"); }
                 break;
             default:
                 System.out.println("\nWrong selection. Please type PLAY, HISTORY or QUIT\n");
                 mainMenuSelection();
                 break;
 
+        }
+    }
+
+    public static void userHistory() {
+        if (gamesPlayed == 0) {
+            File history = new File("/Users/serkanbal/Desktop/project-0/save-files/history.txt");
+            if (history.exists()) {
+                try {
+                    Scanner s = new Scanner(new File("/Users/serkanbal/Desktop/project-0/save-files/history.txt"));
+                    ArrayList<String> readArray = new ArrayList<>();
+                    while (s.hasNextLine()) {
+                        readArray.add(s.nextLine());
+                    }
+                    s.close();
+                    for (int i = 0; i < readArray.size(); i+=3) {
+                        userHistory.add(readArray.get(i));
+                    }
+                    for (int i = 1; i < readArray.size(); i+=3) {
+                        computerHistory.add(readArray.get(i));
+                    }
+                    for (int i = 2; i < readArray.size(); i+=3) {
+                        gameHistory.add(readArray.get(i));
+                    }
+                    for (int i = 0; i < userHistory.size(); i++) {
+                        System.out.println("User Selection: " + userHistory.get(i) + " - Computer Selection: " +
+                                computerHistory.get(i) + " - Game Result: " +gameHistory.get(i));
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("No Game Results Yet!"); }
+        } else {
+            System.out.println("\n==GAME HISTORY===\n" + "\nTotal number of games played: " + gamesPlayed + "\n");
+            for (int i = 0; i < userSelections.size(); i++) {
+                System.out.println("User Selection: " + userSelections.get(i) + " - Computer Selection: " +
+                        computerSelections.get(i) + " - Game Result: " + gameResult.get(i));
+            }
         }
     }
 
