@@ -22,6 +22,8 @@ public class Main {
     static String[] elementalSet= {"fire", "grass", "water"};
     static String[] politicalSet= {"bernie","trump","hillary"};
 
+    static String[] cpuMemory = {"Sweet", "Christmas", "Diamondback"};
+
 
 
 
@@ -115,7 +117,7 @@ public class Main {
         }
 
     }
-    public static void makeCustom(){
+    public static void makeCustom(){//ToDO: Make a check for null input.
         System.out.println(customPromptMessage);
         String[] customSet= new String[3];
         customSet[0] = removeCaseSensitive(getInput(firstCustomMessage));
@@ -203,7 +205,7 @@ public class Main {
                 }
             }
 
-            if (validInput) { //Changes shorthand entry into full word.
+            if (validInput) { //Changes shorthand entry into full word. ToDO: Simplify this if statement by just decreasing index value by 3.
                 if (validEntries[3].equals(playerThrow)){
                     playerThrow = validEntries[0];
                 }else if (validEntries[4].equals(playerThrow)){
@@ -233,7 +235,33 @@ public class Main {
     public static String checkOutcome(String playerThrows) {
         String winner;
         Random randomGen = new Random();
-        int compThrowIndex = randomGen.nextInt(3);
+        int compThrowIndex;
+        //Begin My exploitable strategy (bare minimum AI)
+        if (round>3 &&(cpuMemory[0].equals(cpuMemory[1]) && cpuMemory[0].equals(cpuMemory[2]))){
+            //If player is spamming the same move. AI counters with the move that beats it.
+            ArrayList<String> temp = new ArrayList();
+            temp.add(validEntries[0]);
+            temp.add(validEntries[1]);
+            temp.add(validEntries[2]);
+            int indexOfpSpam = temp.indexOf(cpuMemory[0]);//All are the same so doesn't matter which move to take out of memory.
+            compThrowIndex=cpuCounterPlay(indexOfpSpam);
+
+
+        }else if (round>3 &&(!cpuMemory[0].equals(cpuMemory[1])&&!cpuMemory[1].equals(cpuMemory[2])&&!cpuMemory[0].equals(cpuMemory[2]))){
+            //If all the past 3 moves are different,
+            // assume that player is cycling through moves
+            // and return the counter to next move in cycle.
+            ArrayList<String> temp = new ArrayList();
+            temp.add(validEntries[0]);
+            temp.add(validEntries[1]);
+            temp.add(validEntries[2]);
+            int indexOfpCycle = temp.indexOf(cpuMemory[2]);
+            compThrowIndex = cpuCounterPlay(indexOfpCycle);
+            }
+        else{//The cpu doesn't recognize an opponent strategy so it plays an unexploitable game; pure random.
+            compThrowIndex = randomGen.nextInt(3);
+        }
+
 
         if (playerThrows.equals(validEntries[compThrowIndex])) {
             winner = "No one";
@@ -264,11 +292,37 @@ public class Main {
         }
         String message = "CPU threw: " + validEntries[compThrowIndex] + "  Player threw: " + playerThrows + "\n " + winner + " wins!\n";
         message+= "\n Current Score \n CPU: "+ cpuScore + "\nPlayer: "+ playerScore;
+        cpuMemorizes(playerThrows);
         if (winner.equals("No one")) {
             winner = "Tie";
         }
         logResults(winner, validEntries[compThrowIndex], playerThrows);
         return message;
+    }
+
+    public static int cpuCounterPlay(int anticipatedPlayIndex) { //CPU counters the anticipated move by playing the move in the index before.
+        int compThrowIndex=0;
+        switch (anticipatedPlayIndex) {
+            case 0:
+                compThrowIndex = 3;
+                break;
+            case 1:
+                compThrowIndex = 0;
+                break;
+            case 2:
+                compThrowIndex = 1;
+                break;
+        }
+        return compThrowIndex;
+    }
+
+
+
+
+    public static void cpuMemorizes(String pMove){
+        cpuMemory[2]=cpuMemory[1];
+        cpuMemory[1]=cpuMemory[0];
+        cpuMemory[0]=pMove;
     }
 
     public static void logResults(String winner, String computersThrow, String playersThrow) {
