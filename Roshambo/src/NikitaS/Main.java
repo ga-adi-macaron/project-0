@@ -18,7 +18,7 @@ public class Main {
     static String ANSI_WHITE = "\u001B[37m";
 
     static ArrayList<String> results = new ArrayList<>();
-    static String header = "============Welcome to Game==============";//FixMe: Get title
+    static String header = ANSI_GREEN+"============Welcome to Roshambo-2000=============="+ANSI_RESET;//FixMe: Get title
     static String mainPrompt = "Type in one of the following: \n \"Play\" \n \"History\" \n \"Option\" \n \"Quit\" \n";
     static String[] validEntries = {"fire", "grass", "water", "f", "g", "w"}; // 0 beats 1, 1 beats 2, 2 beats 0 Keep that dynamic or everything falls apart.
     static String playerActionMessage = "Enter \"" + validEntries[0] + "\", \"" + validEntries[1] + "\" or \"" + validEntries[2] + "\" or just the first letter:";
@@ -222,7 +222,9 @@ public class Main {
         validEntries[3]= firstTrans;
         validEntries[4]= secondTrans;
         validEntries[5]=thirdTrans;
-        System.out.println("The new set list is: "+validEntries[0]+", "+ validEntries[1]+ ", "+ validEntries[2]+ ".");
+        String message = "The new set list is: "+validEntries[0]+", "+ validEntries[1]+ ", "+ validEntries[2]+ ".";
+        message = adjustColor(message);
+        System.out.println(message);
         playerActionMessage = "Enter \"" + validEntries[0] + "\", \"" + validEntries[1] + "\" or \"" + validEntries[2] + "\" or just the first letter:";
         displayMainMenu();
 
@@ -329,14 +331,17 @@ public class Main {
                 switch (word) {
                     case "\"fire\",":
                     case "fire":
+                    case "fire,":
                         newInput += fire+ " ";
                         break;
                     case "\"grass\"":
                     case "grass":
+                    case "grass,":
                         newInput += grass+ " ";
                         break;
                     case "\"water\"":
                     case "water":
+                    case "water.":
                         newInput += water+ " ";
                         break;
                     default:
