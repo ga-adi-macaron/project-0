@@ -76,7 +76,6 @@ public class Main {
             System.out.println("I chose scissors and you chose rock...I guess you win :(");
             resultsW();
         }
-        play();
 
     }
 
@@ -96,7 +95,6 @@ public class Main {
             System.out.println("I chose scissors and you chose paper...I win :p");
             resultsL();
         }
-        play();
 
     }
 
@@ -116,7 +114,7 @@ public class Main {
             System.out.println("I chose scissors and you chose scissors...We tied :/");
             resultsT();
         }
-        play();
+
     }
 
     public static void resultsW(){
@@ -144,5 +142,4 @@ public class Main {
     public static void quit(){
         System.out.println("Thanks for playing :) \n Have a great day!");
     }
-
 }
