@@ -6,15 +6,11 @@ public class Main {
     private static List<Integer> wins = new ArrayList<>();
     private static List<Integer> losses = new ArrayList<>();
     private static List<Integer> ties = new ArrayList<>();
-
-
     public static String getInput(String context){
         System.out.print(context+": ");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
-
     }
-
 
     public static void main(String[] args) {
         System.out.println("Hello! :) Welcome to Rock Paper Scissors");
@@ -35,11 +31,10 @@ public class Main {
             System.out.println("Sorry :/ That's not a valid response");
             mainMenu();
         }
-        }
-
+    }
 
     public static void play(){
-        System.out.println("Cool let's play :) You can always type 'BACK' to go to the main menu");
+        System.out.println("Cool let's play :) You can always type 'BACK' to go to the Main Menu");
         String choice = getInput("Pick ROCK, PAPER, or SCISSORS");
         String choiceLow = choice.toLowerCase();
 
@@ -54,67 +49,57 @@ public class Main {
         else {
             System.out.println("Sorry :/ That's not a valid response");
             play();}
-
-
     }
-
-
-
 
     public static void comChoiceR(){
         Random rand = new Random();
         int comPick = rand.nextInt(3) +1;
         if (comPick == 1){
-            System.out.println("I chose rock and you chose rock...we tied :/");
+            System.out.println("I chose ROCK and you chose ROCK...we tied :/");
             resultsT();
         }
         else if (comPick == 2){
-            System.out.println("I chose paper and you chose rock...I win :p");
+            System.out.println("I chose PAPER and you chose ROCK...I win :p");
             resultsL();
         }
         else if (comPick == 3){
-            System.out.println("I chose scissors and you chose rock...I guess you win :(");
+            System.out.println("I chose SCISSORS and you chose ROCK...I guess you win :(");
             resultsW();
         }
-
     }
-
 
     public static void comChoiceP(){
         Random rand = new Random();
         int comPick = rand.nextInt(3) +1;
         if (comPick == 1){
-            System.out.println("I chose rock and you chose paper...I guess you win :(");
+            System.out.println("I chose ROCK and you chose PAPER...I guess you win :(");
             resultsW();
         }
         else if (comPick == 2){
-            System.out.println("I chose paper and you chose paper...We tied :/");
+            System.out.println("I chose PAPER and you chose PAPER...We tied :/");
             resultsT();
         }
         else if (comPick == 3){
-            System.out.println("I chose scissors and you chose paper...I win :p");
+            System.out.println("I chose SCISSORS and you chose PAPER...I win :p");
             resultsL();
         }
-
     }
-
 
     public static void comChoiceS(){
         Random rand = new Random();
         int comPick = rand.nextInt(3) +1;
         if (comPick == 1){
-            System.out.println("I chose rock and you chose scissors...I win :p");
+            System.out.println("I chose ROCK and you chose SCISSORS...I win :p");
             resultsL();
         }
         else if (comPick == 2){
-            System.out.println("I chose paper and you chose scissors...I guess you win :(");
+            System.out.println("I chose PAPER and you chose SCISSORS...I guess you win :(");
             resultsW();
         }
         else if (comPick == 3){
-            System.out.println("I chose scissors and you chose scissors...We tied :/");
+            System.out.println("I chose SCISSORS and you chose SCISSORS...We tied :/");
             resultsT();
         }
-
     }
 
     public static void resultsW(){
@@ -133,9 +118,9 @@ public class Main {
     }
 
     public static void history(){
-        System.out.println("You have won " + wins.size());
-        System.out.println("I have won " + losses.size());
-        System.out.println("We have tied " + ties.size());
+        System.out.println("You Have Won: " + wins.size());
+        System.out.println("I Have Won: " + losses.size());
+        System.out.println("We Have Tied: " + ties.size());
         if (losses.size() < wins.size()){
             System.out.println("You are in the lead!");
         }
@@ -149,6 +134,6 @@ public class Main {
     }
 
     public static void quit(){
-        System.out.println("Thanks for playing :) \n Have a great day!");
+        System.out.println("Thanks for Playing :) \n Have a Great Day!");
     }
 }
