@@ -3,10 +3,7 @@ package com.joelimyx;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -65,7 +62,6 @@ public class Main {
         //Beginning of MAIN
         //Variables
         Scanner input = new Scanner(System.in);
-        ArrayList<String> historyList = new ArrayList<>();
         ArrayList<String> readList = new ArrayList<>();
         int numOfGamePlayed = 0;
         String mode, userChoice, computerChoice="";
@@ -76,21 +72,14 @@ public class Main {
 
         //******************************************************************************************
         //FileReader
-        BufferedReader bufferedReader;
+        BufferedReader reader;
         String fileName = "history.txt";
         BufferedWriter writer;
         String temp;
 
         try {
-            bufferedReader = new BufferedReader(new FileReader(fileName));
-            while ((temp = bufferedReader.readLine()) != null) {
-                readList.add(temp);
-            }
-            writer = new BufferedWriter(new FileWriter(fileName));
-            for (String phrase :
-                    readList) {
-                writeToFile(writer, phrase);
-            }
+            reader = new BufferedReader(new FileReader(fileName));
+            writer = new BufferedWriter(new FileWriter(fileName,true));
 
             //******************************************************************************************
             //MainMenu
@@ -106,16 +95,20 @@ public class Main {
                 //******************************************************************************************
                 //Rock Paper Scissor play mode
                 if (mode.equalsIgnoreCase("play")) {
-                    writeToFile(writer,currentDateTime.format(formatter));
-                    writer.flush();
                     writeToFile(writer,"Session start:");
+                    writeToFile(writer,currentDateTime.format(formatter));
+
 
 
                     inGame = true;
 
                     while (inGame) {
-                        System.out.println("+========================================+\n" +
-                                "Enter your choice: (Rock , Paper or Scissor) \nor \"Quit\" to exit");
+                        System.out.println("*********************************************************\n" +
+                                "Enter your choice: " +
+                                "\nRock, " +
+                                "\nPaper," +
+                                "\nScissor " +
+                                "\n(or \"Quit\" to exit)");
                         userChoice = input.nextLine();
 
                         if (userChoice.equalsIgnoreCase("rock")
@@ -170,7 +163,8 @@ public class Main {
                     // Print out History
                     writer.close();
                 } else if (mode.equalsIgnoreCase("history")) {
-                    while ((temp = bufferedReader.readLine()) != null) {
+                    System.out.println("Your history of play: ");
+                    while ((temp = reader.readLine()) != null) {
                         readList.add(temp);
                     }
                     for (String line :
@@ -185,14 +179,14 @@ public class Main {
                     mainMenu = false;
                 }
             }
-                //******************************************************************************************
-                //Close out writer
+            //******************************************************************************************
+            //Close out writer
 
-            }catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }catch (IOException e){
-                e.getMessage();
-            }
+        }catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }catch (IOException e){
+            e.getMessage();
+        }
     }
 }
 

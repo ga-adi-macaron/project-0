@@ -1,6 +1,10 @@
-2016-10-07: 12:03:24PM
+2016-10-07: 01:32:25PM
 Session start:
-1. Computer played: Scissor. You played: rock. The result was You Won
-2. Computer played: Rock. You played: rock. The result was a Draw
-2016-10-07: 12:03:24PM
+1. Computer played: Paper. You played: rock. The result was You Lost...
+2. Computer played: Paper. You played: rock. The result was You Lost...
+2016-10-07: 01:32:25PM
+Session ended.
+2016-10-07: 01:35:19PM
+Session start:
+2016-10-07: 01:35:19PM
 Session ended.
