@@ -1,8 +1,10 @@
 package NikitaS;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.FileHandler;
 
 public class Main {
     static ArrayList<String> results = new ArrayList<>();
@@ -10,12 +12,14 @@ public class Main {
     static String mainPrompt = "Type in one of the following: \n \"Play\" \n \"History\" \n \"Option\" \n \"Quit\" \n";
     static String[] validEntries = {"rock", "scissors", "paper", "r", "s", "p"}; // 0 beats 1, 1 beats 2, 2 beats 0 Keep that dynamic or everything falls apart.
     static String playerActionMessage = "Enter \"" + validEntries[0] + "\", \"" + validEntries[1] + "\" or \"" + validEntries[2] + "\" or just the first letter:";
-    static String optionsMessage = "Choose which set you wish to play with from below: \n 1.(default) Elemental set \n 2. Classic set \n 3. Political set \n 4. Custom set \n 5. Keep current settings and exit.\n";
+    static String optionsMessage = "Choose which set you wish to play with from below: \n 1.(default) Elemental set \n 2. Classic set \n 3. Political set \n 4. Custom set \n 5. Keep current settings and exit.\n 6.Delete save file(No going back)\n";
 
     static String customPromptMessage = "Go ahead and put in your own variables. The order is:\n1st beats 2nd, 2nd beats 3rd, 3rd beats 1st.\n(Also keep in mind, for the time being, they each have to start with a different letter.)\n \n ";
     static String firstCustomMessage = "What is your first variable?\n";
     static String secondCustomMessage = "Enter your second variable, this one loses to the first\n";
     static String thirdCustomMessage = "Now your last variable, this one loses to the previous but beats the first\n";
+
+    static String saveFileSeshDivison= "\n--------------------Start of a new Session------------------------------------\n";
 
 
     static String[] classicSet= {"rock", "scissors", "paper"};
@@ -23,6 +27,11 @@ public class Main {
     static String[] politicalSet= {"bernie","trump","hillary"};
 
     static String[] cpuMemory = {"Sweet", "Christmas", "Diamondback"};
+
+    static int gameUpperLimit=21;
+
+    static String currentDirectory;
+    static boolean loggedStartSesh = false;
 
 
 
@@ -39,6 +48,7 @@ public class Main {
 
     static int round;
     static int bestOf;
+    static PrintWriter writer;
 
 
 //ToDo: Make a basic AI
@@ -56,9 +66,26 @@ public class Main {
         cpuScore = 0;
         playerScore = 0;
 
+        loadHistory();
+
+        currentDirectory =System.getProperty("user.dir");
+
         displayMainMenu();
+    }
 
-
+    public static void loadHistory(){
+        String line;
+        try {
+            BufferedReader buffReader = new BufferedReader(new FileReader("saveFile.txt"));
+            while((line =buffReader.readLine())!= null ){
+                results.add(line);
+            }
+            buffReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void displayMainMenu() {
@@ -89,7 +116,7 @@ public class Main {
         String userChoice = getInput(optionsMessage);
         try{
             int set = Integer.valueOf(userChoice);
-            if (set>5){
+            if (set>6){
                 System.out.println("That's not a valid choice");
             }else{
                 switch (set){
@@ -108,6 +135,9 @@ public class Main {
                     case 5:
                         displayMainMenu();
                         break;
+                    case 6:
+                        deleteSaveFile();
+                        break;
                 }
             }
 
@@ -115,6 +145,18 @@ public class Main {
             System.out.println("That's not an integer.");
             openOptions();
         }
+
+    }
+
+    public static void deleteSaveFile(){
+        try {
+            PrintWriter pw =  new PrintWriter("saveFile.txt");
+            pw.print("");
+            pw.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        displayMainMenu();
 
     }
     public static void makeCustom(){//ToDO: Make a check for null input.
@@ -198,6 +240,18 @@ public class Main {
             round++;
             String playerThrow = removeCaseSensitive(getInput(playerActionMessage));
             boolean validInput = false;
+            if (!loggedStartSesh){
+                loggedStartSesh=true;
+                try {
+                    BufferedWriter bw = new BufferedWriter(new FileWriter("saveFile.txt",true));
+                    bw.write(saveFileSeshDivison);
+                    bw.newLine();
+                    bw.flush();
+                    bw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             for (int i = 0; i < validEntries.length; i++) {
                 if (playerThrow.equals(validEntries[i])) {
                     validInput = true;
@@ -228,6 +282,15 @@ public class Main {
                 matchResultMessage= String.format("The computer won the match with a score of %s : %s \n",String.valueOf(cpuScore), String.valueOf(playerScore));
             }
             results.add(matchResultMessage);
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter("saveFile.txt",true));
+                bw.write(matchResultMessage);
+                bw.newLine();
+                bw.flush();
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             displayMainMenu();
         }
     }
@@ -328,13 +391,23 @@ public class Main {
     public static void logResults(String winner, String computersThrow, String playersThrow) {
         String logMessage = String.format("Round#%s|| Win went to: %s | Player threw: %s | Computer threw: %s",String.valueOf(round), winner, playersThrow, computersThrow);
         results.add(logMessage);
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("saveFile.txt",true));
+            bw.write(logMessage);
+            bw.newLine();
+            bw.flush();
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void askBestOf() {
         String userInput = getInput(bestOfPrompt);
         try {
             Integer.valueOf(userInput);
-            if (Integer.valueOf(userInput) > 21) {
+            if (Integer.valueOf(userInput) > gameUpperLimit) {
                 System.out.println("For arbitrary reasons that I made up, you can't play that many games. Please enter a valid number\n");
                 askBestOf();
             } else if (Integer.valueOf(userInput) % 2 == 0) {
