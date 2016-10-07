@@ -23,85 +23,27 @@ public class Main {
                 gameMain();
             } else if(getInput.equals("history")) {
                 for (int i = 0; i < gameHistory.size(); i++) {
-                    System.out.println(i+1 + ". " + gameHistory.get(i));
+                    System.out.println(i + 1 + ". " + gameHistory.get(i));
                 }
-                System.out.println("(PLAY/HISTORY/EXIT");
-            } else {
-                System.out.println("(PLAY/HISTORY/EXIT)");
             }
+            System.out.println("(PLAY/HISTORY/EXIT)");
         } while(true);
     }
 
-    public static List<String> gameHistory = new ArrayList<>();
+    //List to store game results
+    private static List<String> gameHistory = new ArrayList<>();
 
     //Returns win/loss/tie based on user and computer input
-    public static void gameMain() {
-        final String cRock = "PC: ROCK";
-        final String cPaper = "PC: PAPER";
-        final String cScissors = "PC: SCISSORS";
+    private static void gameMain() {
         System.out.println("Type your choice (ROCK/PAPER/SCISSORS)");
         String userChoice = userInput();
         String computerChoice = randomInput();
-        switch (computerChoice) {
-            case "rock":
-                if (userChoice.equals("paper")) {
-                    System.out.println(cRock + "\nYOU: " + userChoice
-                    + "\nYou win!\n(PLAY/HISTORY/EXIT)");
-                    gameHistory.add("User win\nUSER CHOICE: " + userChoice
-                    + " PC CHOICE: " + computerChoice);
-                } else if (userChoice.equals("rock")) {
-                    System.out.println(cRock + "\nYOU: " + userChoice
-                    + "\nIt's a tie.\n(PLAY/HISTORY/EXIT)");
-                    gameHistory.add("TIE: ROCK v ROCK");
-                } else if (userChoice.equals("scissors")) {
-                    System.out.println(cRock + "\nYOU: " + userChoice
-                    + "\nYou lost...\n(PLAY/HISTORY/EXIT)");
-                    gameHistory.add("Computer win\nUSER CHOICE: " + userChoice
-                    + " PC CHOICE: " + computerChoice);
-                }
-                break;
-            case "paper":
-                if (userChoice.equals("paper")) {
-                    System.out.println(cPaper + "\nYOU: " + userChoice
-                    + "\nIt's a tie.\n(PLAY/HISTORY/EXIT)");
-                    gameHistory.add("TIE: PAPER v PAPER");
-                } else if (userChoice.equals("rock")) {
-                    System.out.println(cPaper + "\nYOU: " + userChoice
-                    + "\nYou lost...\n(PLAY/HISTORY/EXIT)");
-                    gameHistory.add("Computer win\nUSER CHOICE: " + userChoice
-                    + " PC CHOICE: " + computerChoice);
-                } else if (userChoice.equals("scissors")) {
-                    System.out.println(cPaper + "\nYOU: " + userChoice
-                    + "\nYou win!\n(PLAY/HISTORY/EXIT)");
-                    gameHistory.add("User win\nUSER CHOICE: " + userChoice
-                    + " PC CHOICE: " + computerChoice);
-                }
-                break;
-            case "scissors":
-                if(userChoice.equals("paper")) {
-                    System.out.println(cScissors + "\nYOU: " + userChoice
-                    + "\nYou lost...\n(PLAY/HISTORY/EXIT)");
-                    gameHistory.add("Computer win\nUSER CHOICE: " + userChoice
-                    + " PC CHOICE: " + computerChoice);
-                } else if(userChoice.equals("rock")) {
-                    System.out.println(cScissors + "\nYOU: " + userChoice
-                    + "\nYou win!\n(PLAY/HISTORY/EXIT)");
-                    gameHistory.add("User win\nUSER CHOICE: " + userChoice
-                    + " PC CHOICE: " + computerChoice);
-                } else if(userChoice.equals("scissors")) {
-                    System.out.println(cScissors + "\nYOU: " + userChoice
-                    + "\nIt's a tie.\n(PLAY/HISTORY/EXIT)");
-                    gameHistory.add("TIE: SCISSORS v SCISSORS");
-                }
-                break;
-            default:
-                System.out.println("Your opponent is a sore loser and has left the game");
-                System.exit(0);
-        }
+        printResult(userChoice, computerChoice);
+        //gameMain();
     }
 
     //Randomly selects rock/paper/scissors for the computer's input
-    public static String randomInput() {
+    private static String randomInput() {
         double x = Math.round((Math.random()*3)+1);
         if(x == 1)
             return "rock";
@@ -111,8 +53,8 @@ public class Main {
             return "scissors";
     }
 
-    //Represents the user's input during all stages
-    public static String userInput() {
+    //Represents the user's input during all stages and ensures proper format
+    private static String userInput() {
         Scanner s = new Scanner(System.in);
         System.out.println("ACTION: ");
         String input = s.nextLine();
@@ -130,7 +72,73 @@ public class Main {
             System.exit(0);
             return "";
         } else {
-            return "INVALID INPUT";
+            return "";
+        }
+    }
+
+    private static void printResult(String user, String pc) {
+        switch (user) {
+            case "rock":
+                switch (pc) {
+                    case "rock":
+                        System.out.println("TIE @ ROCK");
+                        gameHistory.add("TIE - ROCK");
+                        break;
+                    case "paper":
+                        System.out.println("PC WINS - PAPER COVERS ROCK");
+                        gameHistory.add("PC WIN - PAPER");
+                        break;
+                    case "scissors":
+                        System.out.println("USER WINS - ROCK CRUSHES SCISSORS");
+                        gameHistory.add("USER WIN - ROCK");
+                        break;
+                    default:
+                        System.out.println("system failure...");
+                        break;
+                }
+                break;
+            case "paper":
+                switch (pc) {
+                    case "rock":
+                        System.out.println("USER WINS - PAPER COVERS ROCK");
+                        gameHistory.add("USER WIN - PAPER");
+                        break;
+                    case "paper":
+                        System.out.println("TIE @ PAPER");
+                        gameHistory.add("TIE - PAPER");
+                        break;
+                    case "scissors":
+                        System.out.println("PC WINS - SCISSORS CUT PAPER");
+                        gameHistory.add("PC WIN - SCISSORS");
+                        break;
+                    default:
+                        System.out.println("system failure...");
+                        break;
+                }
+                break;
+            case "scissors":
+                switch (pc) {
+                    case "rock":
+                        System.out.println("PC WINS - ROCK CRUSHES SCISSORS");
+                        gameHistory.add("PC WIN - ROCK");
+                        break;
+                    case "paper":
+                        System.out.println("USER WINS - SCISSORS CUT PAPER");
+                        gameHistory.add("USER WIN - SCISSORS");
+                        break;
+                    case "scissors":
+                        System.out.println("TIE @ SCISSORS");
+                        gameHistory.add("TIE - SCISSORS");
+                        break;
+                    default:
+                        System.out.println("system failure...");
+                        break;
+                }
+                break;
+            default:
+                System.out.println("Type your choice (ROCK/PAPER/SCISSORS)");
+                String tryAgain = userInput();
+                printResult(tryAgain, pc);
         }
     }
 }
