@@ -74,6 +74,7 @@ public class Main {
                     for (int i = 2; i < readArray.size(); i+=3) {
                         gameHistory.add(readArray.get(i));
                     }
+                    System.out.println("\n==GAME HISTORY FROM PREVIOUS SESSION===\n");
                     for (int i = 0; i < userHistory.size(); i++) {
                         System.out.println("User Selection: " + userHistory.get(i) + " - Computer Selection: " +
                                 computerHistory.get(i) + " - Game Result: " +gameHistory.get(i));
@@ -87,7 +88,7 @@ public class Main {
             } else {
                 System.out.println("No Game Results Yet!"); }
         } else {
-            System.out.println("\n==GAME HISTORY===\n" + "\nTotal number of games played: " + gamesPlayed + "\n");
+            System.out.println("\n==GAME HISTORY===\n" + "\nTotal number of games played this session: " + gamesPlayed + "\n");
             for (int i = 0; i < userSelections.size(); i++) {
                 System.out.println("User Selection: " + userSelections.get(i) + " - Computer Selection: " +
                         computerSelections.get(i) + " - Game Result: " + gameResult.get(i));
