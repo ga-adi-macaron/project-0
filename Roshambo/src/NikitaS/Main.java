@@ -49,11 +49,11 @@ public class Main {
     static String water = ANSI_BLUE + "water" + ANSI_RESET;
     static String grass = ANSI_CYAN + "grass" + ANSI_RESET;
 
-    static String fireAnimate1 = ANSI_RED+"  (\n (,) "+ANSI_RESET;
-    static String fireAnimate2 = ANSI_RED+"  &\n (,) "+ANSI_RESET;
-    static String fireAnimate3 = ANSI_RED+"  )\n (,) "+ANSI_RESET;
-    static String waterAnimate =ANSI_BLUE+""+ANSI_RESET;
-    static String grassAnimate=ANSI_CYAN+""+ANSI_RESET;
+//    static String fireAnimate1 = ANSI_RED+"  (\n (,) "+ANSI_RESET;
+//    static String fireAnimate2 = ANSI_RED+"  &\n (,) "+ANSI_RESET;
+//    static String fireAnimate3 = ANSI_RED+"  )\n (,) "+ANSI_RESET;
+//    static String waterAnimate =ANSI_BLUE+""+ANSI_RESET;
+//    static String grassAnimate=ANSI_CYAN+""+ANSI_RESET;
 
 
 
@@ -82,7 +82,6 @@ public class Main {
 
         displayMainMenu();
     }
-
     public static void loadHistory(){
         String line;
         try {
@@ -97,14 +96,12 @@ public class Main {
             e.printStackTrace();
         }
     }
-
     public static void displayMainMenu() {
         playerScore =0;
         cpuScore=0;
         System.out.println(header);
         userMainEntry(removeCaseSensitive(getInput(mainPrompt)));
     }
-
     public static void userMainEntry(String userInput) {
         if (userInput.equals("play") || userInput.equals("p")) {
             askBestOf();
@@ -121,28 +118,27 @@ public class Main {
             displayMainMenu();
         }
     }
-    public static void fireAnimation(){
-        System.out.println(fireAnimate1+ "\n");
-        try {
-            sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(fireAnimate2 + "\n");
-        try {
-            sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(fireAnimate3 + "\n");
-            try {
-                sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        fireAnimation();
-    }
-
+//    public static void fireAnimation(){
+//        System.out.println(fireAnimate1+ "\n");
+//        try {
+//            sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(fireAnimate2 + "\n");
+//        try {
+//            sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(fireAnimate3 + "\n");
+//            try {
+//                sleep(500);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        fireAnimation();
+//    }
     public static void openOptions(){
         String userChoice = getInput(optionsMessage);
         try{
@@ -178,7 +174,6 @@ public class Main {
         }
 
     }
-
     public static void deleteSaveFile(){
         try {
             PrintWriter pw =  new PrintWriter("saveFile.txt");
@@ -187,6 +182,7 @@ public class Main {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        results.clear();
         displayMainMenu();
 
     }
@@ -210,7 +206,6 @@ public class Main {
         customSet[2] = thirdTemp;
         changeSet(customSet);
     }
-
     public static boolean checkIfAllowed(String... strings){
         ArrayList<String> firstLetters= new ArrayList();
         for (String s:strings){
@@ -224,7 +219,6 @@ public class Main {
         return true; //Went through all the iterations, no duplicates were found, return true.
 
     }
-
     public static void changeSet(String[] newSet){//FixMe: If first letters are the same for multiple words I would need to take first 2 or more.
         String firstTrans = newSet[0].substring(0,1);//First letter of first word.
         String secondTrans = newSet[1].substring(0,1);//First letter of second word.
@@ -243,17 +237,14 @@ public class Main {
         displayMainMenu();
 
     }
-
     public static String getInput(String message) {//Taken from integer calculator
         System.out.println(message + ": ");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
-
     public static String removeCaseSensitive(String string) {
         return string.toLowerCase();
     }
-
     public static void displayHistory() {
         if (results.size() == 0) {
             System.out.println("There is no history to display yet. \nWhy don't you play a few rounds?");
@@ -264,11 +255,9 @@ public class Main {
         }
         displayMainMenu();
     }
-
     public static void endGame() {
         System.out.println("Thanks for playing");
     }
-
     public static void playRound() {
         if (playerScore < (bestOf/2)+1 && cpuScore <(bestOf/2)+1) {//Checks that both players have less than required score. e.g. 2 of 3, 3 of 5, 4 of 7
             round++;
@@ -329,7 +318,6 @@ public class Main {
             displayMainMenu();
         }
     }
-
     public static String adjustColor(String input) {
         String newInput = "";
         if (validEntries[0].equals("fire") && validEntries[1].equals("grass") && validEntries[2].equals("water")) {
@@ -363,8 +351,6 @@ public class Main {
         }
         return newInput;
     }
-
-
     public static String checkOutcome(String playerThrows) {
         String winner;
         Random randomGen = new Random();
@@ -433,7 +419,6 @@ public class Main {
         logResults(winner, validEntries[compThrowIndex], playerThrows);
         return message;
     }
-
     public static int cpuCounterPlay(int anticipatedPlayIndex) { //CPU counters the anticipated move by playing the move in the index before.
         int compThrowIndex=0;
         switch (anticipatedPlayIndex) {
@@ -449,14 +434,11 @@ public class Main {
         }
         return compThrowIndex;
     }
-
-
     public static void cpuMemorizes(String pMove){
         cpuMemory[2]=cpuMemory[1];
         cpuMemory[1]=cpuMemory[0];
         cpuMemory[0]=pMove;
     }
-
     public static void logResults(String winner, String computersThrow, String playersThrow) {
         String logMessage = String.format("Round#%s|| Win went to: %s | Player threw: %s | Computer threw: %s",String.valueOf(round), winner, playersThrow, computersThrow);
         results.add(logMessage);
@@ -471,9 +453,11 @@ public class Main {
         }
 
     }
-
     public static void askBestOf() {
         String userInput = getInput(bestOfPrompt);
+        if (userInput.length()>4){
+            userInput= userInput.substring(0,4); //In case a user puts an integer that is outside of the Integer type range, it will be shortened to 4 digits, which will still be too long. Done purely to tell the player the number is too large instead of telling them it's not an int.
+        }
         try {
             int x = Integer.valueOf(userInput);
             if (x<0){
