@@ -328,12 +328,15 @@ public class Main {
             for (String word : input.split(" ")) {
                 switch (word) {
                     case "\"fire\",":
+                    case "fire":
                         newInput += fire+ " ";
                         break;
                     case "\"grass\"":
+                    case "grass":
                         newInput += grass+ " ";
                         break;
                     case "\"water\"":
+                    case "water":
                         newInput += water+ " ";
                         break;
                     default:
@@ -409,7 +412,8 @@ public class Main {
                 cpuScore++;
             }
         }
-        String message = "CPU threw: " + validEntries[compThrowIndex] + "  Player threw: " + playerThrows + "\n " + winner + " wins!\n";
+        String message = "CPU threw: " + validEntries[compThrowIndex] + "  Player threw: " + playerThrows + " \n " + winner + " wins!\n";
+        message = adjustColor(message);
         message+= "\n Current Score \n CPU: "+ cpuScore + "\nPlayer: "+ playerScore;
         cpuMemorizes(playerThrows);
         if (winner.equals("No one")) {
