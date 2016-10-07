@@ -1,5 +1,6 @@
 package com.korbkenny;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,6 +26,10 @@ public class Main {
         int io = 1;
         List<Integer> theHistory = new ArrayList<>();
 
+//        PrintWriter writer = new PrintWriter("the-file-name.txt", "UTF-8");
+//        writer.theHistory;
+//        writer.close();
+
         while (io == 1) {
 
             if (theHistory.size() < 7) {
@@ -49,7 +54,7 @@ public class Main {
 
             }
                 Scanner input = new Scanner(System.in);
-                String userInput = input.nextLine();
+                String userInput = input.nextLine().toLowerCase();
                 int results = 0;
 
 
@@ -65,7 +70,7 @@ public class Main {
                         System.out.println("          ........             ");
                         System.out.println("        choose wisely          ");
                         input = new Scanner(System.in);
-                        userInput = input.nextLine();
+                        userInput = input.nextLine().toLowerCase();
 
 
                         int compChoice = 1 + (int) (Math.random() * 3);
@@ -178,7 +183,7 @@ public class Main {
 
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("~~                             ~~");
-            System.out.println("~~          you lost           ~~");
+            System.out.println("~~          YOU LOST           ~~");
             System.out.println("~~                             ~~");
             System.out.println("~~                             ~~");
             System.out.println("~~  runProgram: autoQuit.exe   ~~");
@@ -197,38 +202,7 @@ public class Main {
 
 
             }
-//            else {
-//                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//                System.out.println("~~                             ~~");
-//                System.out.println("~~  YOU'VE UNLOCKED HARD MODE  ~~");
-//                System.out.println("~~                             ~~");
-//                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//                System.out.println("~~          type play:         ~~");
-//                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//
-//                Scanner input = new Scanner(System.in);
-//                String userInput = input.nextLine();
-//
-//                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//                System.out.println("           choose:               ");
-//                System.out.println("~  ROCK  ~  PAPER  ~  SCISSORS  ~");
-//                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//
-//                input = new Scanner(System.in);
-//                userInput = input.nextLine();
-//
-//                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//                System.out.println("~~                             ~~");
-//                System.out.println("~~          you lost           ~~");
-//                System.out.println("~~                             ~~");
-//                System.out.println("~~                             ~~");
-//                System.out.println("~~  runProgram: autoQuit.exe   ~~");
-//                System.out.println("~~                             ~~");
-//                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//
-//                io = 0;
-//                return;
-//            }
+
         }
 
     }
