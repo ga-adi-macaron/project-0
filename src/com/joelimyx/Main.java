@@ -7,20 +7,65 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    static String mRock =
+            "****************************************\n"+
+                    "********************        ***    *****\n" +
+                    "*************         *****           **\n" +
+                    "*********            ***************  **\n" +
+                    "******        ***********************  *\n" +
+                    "***     ******************** *  *****  *\n" +
+                    "**   **************   ******   ******  *\n" +
+                    "*  *********   ****   *******  ******  *\n" +
+                    "*     ******  *****  ******** *******  *\n" +
+                    "*     ******  *****  ******** *******  *\n" +
+                    "*    ******  ******  *******  ******** *\n" +
+                    "**   ******  ******  *******  *******  *\n" +
+                    "****  *****  ******  ******** *******  *\n" +
+                    "****  ****** *******  *******  *****   *\n" +
+                    "****   *****  ******  *****      **   **\n" +
+                    "******         *****                 ***\n" +
+                    "********               ****  **   ******\n" +
+                    "**************   *****    ***    *******\n" +
+                    "***************                *********\n" +
+                    "****************************************\n";
+
+    static String mScissor =
+            "**************************************************\n" +
+                    "**           *************************************\n" +
+                    "*             ***************************       **\n" +
+                    "*   *******    **********************            *\n" +
+                    "*              ******************              ***\n" +
+                    "**             **************               ******\n" +
+                    "*****              ******               **********\n" +
+                    "*************                      ***************\n" +
+                    "*****************             ********************\n" +
+                    "***************                   ****************\n" +
+                    "**********                           *************\n" +
+                    "****               *******               *********\n" +
+                    "*      **      ******************             ****\n" +
+                    "*    ******    **********************            *\n" +
+                    "*             ***************************      ***\n" +
+                    "***         **************************************\n" +
+                    "**************************************************\n";
+    static String mPaper;
     public static String rockPaperScissor(String computerChoice, String user_Choice){
-        //Rock
-        System.out.println("The computer pick "+computerChoice+".");
-        System.out.println("You pick "+ user_Choice+".");
 
         if (computerChoice.equals("Rock")){
-            //Rock
+            //Computer == Rock
+
+            System.out.println("The computer pick \n"+mRock);
+
             if(user_Choice.equalsIgnoreCase(computerChoice)){
+
+                System.out.println("You pick \n"+ mRock);
                 System.out.println("It is a DRAW!");
                 return "a Draw";
             }else if (user_Choice.equalsIgnoreCase("paper")){
+                System.out.println("You pick \n"+ user_Choice);
                 System.out.println("You WiN!");
                 return  "You Won";
             }else{ // you are scissor
+                System.out.println("You pick \n"+ mScissor);
                 System.out.println("You LOST...");
                 return  "You Lost...";
             }
@@ -28,25 +73,34 @@ public class Main {
         }else if(computerChoice.equalsIgnoreCase("Paper")) {
             //Computer ==  paper
             if (user_Choice.equalsIgnoreCase(computerChoice)) {
+                System.out.println("You pick \n"+ user_Choice);
                 System.out.println("It is a DRAW!");
                 return  "a Draw";
             } else if (user_Choice.equalsIgnoreCase("scissor")) {
+                System.out.println("You pick \n"+ mScissor);
                 System.out.println("You WiN!");
                 return  "You Won";
             } else { // you are rock
+                System.out.println("You pick \n"+ mRock);
                 System.out.println("You LOST...");
                 return  "You Lost...";
             }
 
         }else{
             //Computer == scissor
+
+            System.out.println("The computer pick \n"+mScissor);
+
             if(user_Choice.equalsIgnoreCase(computerChoice)){
+                System.out.println("You pick \n"+ mScissor);
                 System.out.println("It is a DRAW!");
                 return  "a Draw";
             }else if (user_Choice.equalsIgnoreCase("rock")){
+                System.out.println("You pick \n"+ mRock);
                 System.out.println("You WiN!");
                 return  "You Won";
             }else{ // you are paper
+                System.out.println("You pick \n"+ user_Choice);
                 System.out.println("You LOST...");
                 return  "You Lost...";
             }
@@ -59,8 +113,39 @@ public class Main {
 
     public static void main(String[] args){
         //******************************************************************************************
+//        ________  ________  ________  ___  ___                ________  ________  _________
+//       |\   __  \|\   ____\|\   ____\|\  \|\  \              |\   __  \|\   __  \|\___   ___\
+//        \ \  \|\  \ \  \___|\ \  \___|\ \  \ \  \             \ \  \|\  \ \  \|\  \|___ \  \_|
+//         \ \   __  \ \_____  \ \  \    \ \  \ \  \             \ \   __  \ \   _  _\   \ \  \
+//          \ \  \ \  \|____|\  \ \  \____\ \  \ \  \             \ \  \ \  \ \  \\  \|   \ \  \
+//           \ \__\ \__\____\_\  \ \_______\ \__\ \__\             \ \__\ \__\ \__\\ _\    \ \__\
+//            \|__|\|__|\_________\|_______|\|__|\|__|              \|__|\|__|\|__|\|__|    \|__|
+//                      \|_________|
+//
+        //******************************************************************************************
+
+
+       /* String newScissor="";
+        newScissor=scissor.replaceAll(" ","*");
+        for (int i = 0; i < newScissor.length(); i++) {
+            if (newScissor.charAt(i) != '*' && newScissor.charAt(i) != '\n') {
+                newScissor = newScissor.replace(newScissor.charAt(i), ' ');
+            }
+        }
+        System.out.println(scissor);*/
+        //******************************************************************************************
+//        _______   ________   ________
+//        |\  ___ \ |\   ___  \|\   ___ \
+//        \ \   __/|\ \  \\ \  \ \  \_|\ \
+//         \ \  \_|/_\ \  \\ \  \ \  \ \\ \
+//          \ \  \_|\ \ \  \\ \  \ \  \_\\ \
+//           \ \_______\ \__\\ \__\ \_______\
+//            \|_______|\|__| \|__|\|_______|
+
+        //******************************************************************************************
         //Beginning of MAIN
         //Variables
+        //******************************************************************************************
         Scanner input = new Scanner(System.in);
         ArrayList<String> readList = new ArrayList<>();
         int numOfGamePlayed = 0;
@@ -72,6 +157,7 @@ public class Main {
 
         //******************************************************************************************
         //FileReader
+        //******************************************************************************************
         BufferedReader reader;
         String fileName = "history.txt";
         BufferedWriter writer;
@@ -83,10 +169,12 @@ public class Main {
 
             //******************************************************************************************
             //MainMenu
+            //******************************************************************************************
             while (mainMenu) {
 
                 //******************************************************************************************
                 //Game mode
+                //******************************************************************************************
                 System.out.println("+====================================+\n" +
                         "Welcome to a game of ROCK PAPER SCISSOR.");
                 System.out.println("Choose a selection: (Play, History or Quit)");
@@ -94,11 +182,10 @@ public class Main {
 
                 //******************************************************************************************
                 //Rock Paper Scissor play mode
+                //******************************************************************************************
                 if (mode.equalsIgnoreCase("play")) {
                     writeToFile(writer,"Session start:");
                     writeToFile(writer,currentDateTime.format(formatter));
-
-
 
                     inGame = true;
 
@@ -119,6 +206,7 @@ public class Main {
 
                             //******************************************************************************************
                             //Computer Random generator
+                            //******************************************************************************************
                             int rand = (int) (Math.random() * 3);
                             switch (rand) {
                                 case 0:
@@ -137,6 +225,7 @@ public class Main {
 
                             //******************************************************************************************
                             //Storing History
+                            //******************************************************************************************
                             numOfGamePlayed++;
                             writeToFile(writer,numOfGamePlayed + ". Computer played: " +
                                     computerChoice + ". You played: " + userChoice +
@@ -161,6 +250,7 @@ public class Main {
                     }
                     //******************************************************************************************
                     // Print out History
+                    //******************************************************************************************
                     writer.close();
                 } else if (mode.equalsIgnoreCase("history")) {
                     System.out.println("Your history of play: ");
@@ -174,6 +264,7 @@ public class Main {
 
                     //******************************************************************************************
                     // Quit Game
+                    //******************************************************************************************
                 } else if (mode.equalsIgnoreCase("quit")) {
                     System.out.println("Thanks for playing. Have a nice day.");
                     mainMenu = false;
@@ -181,7 +272,7 @@ public class Main {
             }
             //******************************************************************************************
             //Close out writer
-
+            //******************************************************************************************
         }catch (FileNotFoundException e) {
             e.printStackTrace();
         }catch (IOException e){
