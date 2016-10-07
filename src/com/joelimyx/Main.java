@@ -242,13 +242,16 @@ public class Main {
                     //******************************************************************************************
                     writer.close();
                 } else if (mode.equalsIgnoreCase("history")) {
-                    System.out.println("Your history of play: ");
                     while ((temp = reader.readLine()) != null) {
                         readList.add(temp);
-                    }
-                    for (String line :
-                            readList) {
-                        System.out.println(line);
+                    }if (readList.isEmpty()) {
+                        System.out.println("You didn't play a game yet.");
+                    }else {
+                        System.out.println("Your history of play: ");
+                        for (String line :
+                                readList) {
+                            System.out.println(line);
+                        }
                     }
 
                     //******************************************************************************************
@@ -269,4 +272,3 @@ public class Main {
         }
     }
 }
-
